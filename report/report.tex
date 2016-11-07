@@ -1,0 +1,363 @@
+\documentclass[12pt,a4paper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{graphicx}
+\usepackage{listings}
+\usepackage[section]{placeins}
+\usepackage{gensymb}
+
+% pagebreak after each section.
+\usepackage{titlesec}
+\newcommand\sectionbreak{\clearpage}
+
+
+
+% ------------------ ALGO
+\usepackage{algorithm}% http://ctan.org/pkg/algorithms
+\usepackage{algpseudocode}% http://ctan.org/pkg/algorithmicx
+\newcommand{\var}[1]{{\ttfamily#1}}% variable
+% ------------------ ALGO
+
+% Do while stuff. ------------------------
+\algdef{SE}[DOWHILE]{Do}{doWhile}{\algorithmicdo}[1]{\algorithmicwhile\ #1}
+% --------------------------------------
+
+% Code color ------
+\usepackage{color}
+ 
+\definecolor{codegreen}{rgb}{0,0.6,0}
+\definecolor{codegray}{rgb}{0.5,0.5,0.5}
+\definecolor{codepurple}{rgb}{0.58,0,0.82}
+\definecolor{backcolour}{rgb}{0.95,0.95,0.92}
+
+\lstdefinestyle{mystyle}{
+    backgroundcolor=\color{backcolour},   
+    commentstyle=\color{codegreen},
+    keywordstyle=\color{magenta},
+    numberstyle=\tiny\color{codegray},
+    stringstyle=\color{codepurple},
+    basicstyle=\footnotesize,
+    breakatwhitespace=false,         
+    breaklines=true,                 
+    captionpos=b,                    
+    keepspaces=true,                 
+    numbers=left,                    
+    numbersep=5pt,                  
+    showspaces=false,                
+    showstringspaces=false,
+    showtabs=false,                  
+    tabsize=2
+}
+ 
+\lstset{style=mystyle}
+
+% ----------------
+
+\renewcommand\contentsname{}
+\author{Serkan Ongan}
+\begin{document}
+
+\begin{titlepage}
+	\centering
+	{\scshape\Large Tallinn University of Technology \par}
+	Faculty of Information Technology \par
+	Department of Computer Control \par
+	Chair of Automatic Control and Systems Analysis \par
+	
+	\vspace{4cm}
+	
+	Serkan Ongan 156395IASM \par
+	{\large ISS0031 Modeling and Identification \par}
+	{\Large\bfseries Practical Work 02\par}
+	Fractional-order Modeling and Control \par
+	
+	\vspace{3cm}
+
+	\begin{flushright}
+	Supervisor  Aleksei \textsc{Tepljakov} \par
+	\end{flushright}
+
+	\vfill
+	{Tallinn 2016 \par}
+\end{titlepage}
+
+\pagebreak
+
+\section*{Table of Contents}
+
+\tableofcontents
+
+\pagebreak
+
+\listoffigures
+
+\pagebreak
+
+\section{Control Problem}
+
+\ \ \ \ Our task is to control the output $y(t)$ of a certain system. Following information about the system is known:
+
+\begin{enumerate}
+\item Input range u = [-1, 1].
+\item Output range y = [0, 2pi].
+\item Possible deadzone in the control and/or delay.
+\end{enumerate}
+
+We are also provided an identification dataset, along with corresponding validation data.
+
+\subsection{Goal}
+
+\ \ \ \ Goal is to identify a dynamic system and to design a fractional-order controller based on the model.
+
+Control system specifications:
+
+\begin{enumerate}
+\item Time domain: Settling time $T_s \leq 20s$ for $y_r = [0,1]$, overshoot $v \leq 5 \%$ and error band $y_e = \pm 5\%$ of the set point $y_r$.
+\item Frequency domain: Gain margin $G_m \geq 15dB$, phase margin $\varphi \geq 60 \degree$, also phase respone at critical frequency $w_c$ must be as flat as possible.
+\end{enumerate}
+
+\section{FOMCON}
+
+\ \ \ \ To have a first look at the FOMCON toolbox. We can check if the following sample system is stable or not.
+
+\begin{equation}
+G = \frac{s + 1}{-s^1.5 - 1}
+\end{equation}
+
+Stability test shows us that the system is stable with q=1.5 order.
+
+Also using the toolbox, we can simulate the system and/or check its bode diagram.
+
+\begin{figure}[h]
+	\caption{Impulse response}
+	\includegraphics[scale=0.65]{images/000_1}
+	\centering
+\end{figure}
+
+\FloatBarrier
+
+\begin{figure}[h]
+	\caption{Bode diagram.}
+	\includegraphics[scale=0.4]{images/000_2}
+	\centering
+\end{figure}
+
+\FloatBarrier
+
+\ \ \ \ 
+
+\section{Identification}
+
+\ \ \ \ The first step is to load idsets.mat dataset, which we will use for identifying and control tasks.
+
+\begin{verbatim}
+proc_id_v1: identification
+proc_id_v2: validation
+\end{verbatim}
+
+This is a SISO system and in the dataset, 1000 datapoints were collected with 0.05 time difference between samples.
+
+The system inputs and outputs can be seen below.
+
+\begin{figure}[h]
+	\caption{System input and output.}
+	\includegraphics[scale=0.35]{images/001}
+	\centering
+\end{figure}
+
+\FloatBarrier
+
+We can use FOTF Time-domain Identification Tool to start identifying our system. But we have delay and dead zone in the system, so the data needs to be trimmed. Our trim range is [2.25, 22.5]
+
+\begin{figure}[h]
+	\caption{Trimming data.}
+	\includegraphics[scale=0.65]{images/002}
+	\centering
+\end{figure}
+
+\FloatBarrier
+
+\begin{figure}[h]
+	\caption{Trimmed data.}
+	\includegraphics[scale=0.65]{images/003}
+	\centering
+\end{figure}
+
+\FloatBarrier
+
+Next we start our initial identification starting with the following initial model.
+
+\begin{equation}
+G = \frac{1}{s + 1}
+\end{equation}
+
+\begin{figure}[h]
+	\caption{Identification initial parameters.}
+	\includegraphics[scale=0.65]{images/004}
+	\centering
+\end{figure}
+
+\FloatBarrier
+
+After initial identification we get the following model.
+
+\begin{equation}
+G = \frac{0.060674s^{0.043708}}{0.15414s^{0.77204}+0.11057s^{0.40657}}
+\end{equation}
+
+But dynamics in the residuals can be seen in after inspecting the result.
+
+
+\begin{figure}[h]
+	\caption{Residuals.}
+	\includegraphics[scale=0.65]{images/005}
+	\centering
+\end{figure}
+
+\FloatBarrier
+
+\begin{figure}[h]
+	\caption{Validation.}
+	\includegraphics[scale=0.65]{images/006}
+	\centering
+\end{figure}
+
+\FloatBarrier
+
+After adding K (static gain) a new model with q=0.69 is calculated.
+
+\begin{equation}
+G = \frac{1}{14.554s^{0.69498}+1}
+\end{equation}
+
+And after checking residuals, we see that the dynamics disappeared in the model.
+
+\begin{figure}[h]
+	\caption{Residuals.}
+	\includegraphics[scale=0.65]{images/007}
+	\centering
+\end{figure}
+
+\FloatBarrier
+
+\begin{figure}[h]
+	\caption{Validation.}
+	\includegraphics[scale=0.65]{images/008}
+	\centering
+\end{figure}
+
+\FloatBarrier
+
+After trying \textbf{different trimmed datasets}, no linear model could be reached. Often there were residual dynamics in the models.
+
+And finally when we check the system with the validation data we get the following result. This is due the non-linearity in the system.
+
+\begin{figure}[h]
+	\caption{Id2 Validation.}
+	\includegraphics[scale=0.65]{images/009}
+	\centering
+\end{figure}
+
+\FloatBarrier
+
+\section{Control Design}
+
+\ \ \ \ First step to realize a control design is to open FPID Optimization Tool and load the provided $initial\_condition.mat$ configuration.
+
+We also have the following Simulink model provided, where our initial conditions can be loaded into the simulation to check the control results.
+
+
+\begin{figure}[h]
+	\caption{Control model.}
+	\includegraphics[scale=0.35]{images/100}
+	\centering
+\end{figure}
+
+\FloatBarrier
+
+And our initial conditions give us the following the result, which don't fit our control goals.
+
+\begin{figure}[h]
+	\caption{Initial control results.}
+	\includegraphics[scale=0.35]{images/101}
+	\centering
+\end{figure}
+
+\FloatBarrier
+
+After optimization we get the following values for our control.
+
+\begin{verbatim}
+Gain margin [dB]: Inf
+Phase margin [deg]: 105.77
+\end{verbatim}
+
+Both of these values fit our frequency domain goals, although as it can be seen later, there is a room for some improvement.
+
+\begin{figure}[h]
+	\caption{Open-loop frequency response comparison.}
+	\includegraphics[scale=0.55]{images/102}
+	\centering
+\end{figure}
+
+\FloatBarrier
+
+\begin{figure}[h]
+	\caption{Control optimization result.}
+	\includegraphics[scale=0.55]{images/103}
+	\centering
+\end{figure}
+
+\FloatBarrier
+
+After loading the new conditions to the simulink and simulating the control, our Scope shows that we \textbf{partly} achieved our time domain goals as well.
+
+The optimization achieved very small overshoot, with settling time smaller than 20s, and an error band of \%5.
+
+\begin{figure}[h]
+	\caption{Control results}
+	\includegraphics[scale=0.35]{images/104}
+	\centering
+\end{figure}
+
+\FloatBarrier
+
+\begin{figure}[h]
+	\caption{Control results.}
+	\includegraphics[scale=0.35]{images/105}
+	\centering
+\end{figure}
+
+\FloatBarrier
+
+And if we enable "Critical Frequency and gain variation robustness" we can achieve a much better results in both time domain and frequency domain goals.
+
+\begin{figure}[h]
+	\caption{Control comparison.}
+	\includegraphics[scale=0.55]{images/106}
+	\centering
+\end{figure}
+
+\FloatBarrier
+
+\begin{figure}[h]
+	\caption{Open-loop frequency response comparison.}
+	\includegraphics[scale=0.55]{images/107}
+	\centering
+\end{figure}
+
+\FloatBarrier
+
+\begin{figure}[h]
+	\caption{Final control result.}
+	\includegraphics[scale=0.35]{images/108}
+	\centering
+\end{figure}
+
+\FloatBarrier
+
+\ \ \ \ 
+
+\end{document}
