@@ -1,0 +1,10 @@
+.idea/
+
+
+# Dosyalar.
+*.pyc
+*.bak
+*.org~
+*.py~
+*.yaml~
+*.html
