@@ -387,6 +387,428 @@ This chapter includes information about certain Python libraries that offer
 Language and Libraries
 \end_layout
 
+\begin_layout Standard
+Python is a high level scripting language that supports several programming
+ paradigms, including procedural and object-oriented, as well as a partial
+ support for functional programming (although not officially supported or
+ encouraged).
+ This makes it a very flexible tool to use in different application areas.
+\end_layout
+
+\begin_layout Standard
+Another advantage of Python is that it has a clear and almost pseudo-code
+ like syntax, making it easier to read and code.
+ Below can be seen some examples of the syntax.
+ Also appended to the file in Appendix 1 (page 
+\begin_inset CommandInset ref
+LatexCommand pageref
+reference "chap:Appendix-1:-Code"
+
+\end_inset
+
+) are all the codes used in the implementation.
+\end_layout
+
+\begin_layout Standard
+\begin_inset listings
+lstparams "language=Python"
+inline false
+status open
+
+\begin_layout Plain Layout
+
+\begin_inset Caption
+
+\begin_layout Plain Layout
+
+Python programming language.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+
+# function definition ####################################################
+\end_layout
+
+\begin_layout Plain Layout
+
+def function_name(args):
+\end_layout
+
+\begin_layout Plain Layout
+
+	""" Function documentation.
+\end_layout
+
+\begin_layout Plain Layout
+
+	"""
+\end_layout
+
+\begin_layout Plain Layout
+
+	return value
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+# List comprehensions: ###################################################
+\end_layout
+
+\begin_layout Plain Layout
+
+# a fast and convenient way to create lists.
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+[x for x in range(1,10)]
+\end_layout
+
+\begin_layout Plain Layout
+
+#[1, 2, 3, 4, 5, 6, 7, 8, 9] 
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+[x*x for x in range(1,10)] 
+\end_layout
+
+\begin_layout Plain Layout
+
+# [1, 4, 9, 16, 25, 36, 49, 64, 81] 
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+# Class definition.
+ ######################################################
+\end_layout
+
+\begin_layout Plain Layout
+
+class NeuralNetwork(object):     
+\end_layout
+
+\begin_layout Plain Layout
+
+	bias_filename = "biases.npy"     
+\end_layout
+
+\begin_layout Plain Layout
+
+	weights_filename = "weights.npy"
+\end_layout
+
+\begin_layout Plain Layout
+
+    
+\end_layout
+
+\begin_layout Plain Layout
+
+	def __init__(self, layers):         
+\end_layout
+
+\begin_layout Plain Layout
+
+	""" Initialization.
+ """
+\end_layout
+
+\begin_layout Plain Layout
+
+		self.number_of_layers = len(layers)
+\end_layout
+
+\begin_layout Plain Layout
+
+		self.layers = layers
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+	def save_state():
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Being popular and open-sourced, the language has plenty of libraries (roughly
+ 90000 libraries)
+\begin_inset CommandInset citation
+LatexCommand cite
+key "ref:pypi"
+
+\end_inset
+
+ and it is a widely used tool in scientific programming area.
+\end_layout
+
+\begin_layout Standard
+During the research and implementation, I have looked into following libraries.
+\end_layout
+
+\begin_layout Subsection*
+NumPy
+\end_layout
+
+\begin_layout Standard
+NumPy is one of the fundamental scientific packages in Python.
+ 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "ref:numpy"
+
+\end_inset
+
+It offers powerful N-dimensional objects and tools for integrating with
+ C/C++ and Fortran code, which make it possible to solve performance issues
+ using lower level languages that are more performant.
+\end_layout
+
+\begin_layout Standard
+\begin_inset listings
+lstparams "language=Python"
+inline false
+status open
+
+\begin_layout Plain Layout
+
+\begin_inset Caption
+
+\begin_layout Plain Layout
+
+Very brief look into NumPy
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+
+# very brief look into numpy.
+\end_layout
+
+\begin_layout Plain Layout
+
+import numpy as np
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+# creating a vector of 4 elements.
+\end_layout
+
+\begin_layout Plain Layout
+
+vector_4 = np.random.randn(4)
+\end_layout
+
+\begin_layout Plain Layout
+
+# array([ 0.00695554, -0.28457662,  2.36434078, -0.05432569]) 
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+# reshaping into a 2x2 matrix.
+\end_layout
+
+\begin_layout Plain Layout
+
+vector_2x2 = vector_4.reshape(2,2)
+\end_layout
+
+\begin_layout Plain Layout
+
+# array([[ 0.00695554, -0.28457662],        
+\end_layout
+
+\begin_layout Plain Layout
+
+#        [ 2.36434078, -0.05432569]]) 
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+When compared to 
+\series bold
+Matlab
+\series default
+, there are fundamental differences.
+\end_layout
+
+\begin_layout Enumerate
+Basic type in NumPy are multidimensional arrays, and operations on these
+ arrays are 
+\bar under
+element-wise
+\bar default
+.
+ If matrix-like operations are needed, a sub-type called 
+\series bold
+matrix
+\series default
+ type should be used.
+\end_layout
+
+\begin_layout Enumerate
+Python arrays are 0-indexed, so the first element of an array A can be reached
+ by A[0].
+\end_layout
+
+\begin_layout Enumerate
+Better support for GUI applications via Python's general purpose programming
+ approach.
+\end_layout
+
+\begin_layout Enumerate
+In contrast to Matlab, arrays have pass-by-reference semantic.
+\end_layout
+
+\begin_layout Standard
+It should also be noted that official advice of the library is to use 
+\series bold
+arrays
+\series default
+ instead of the 
+\series bold
+matrix
+\series default
+ sub-type.
+ While matrices behave more-or-less like Matlab matrices, they have disadvantage
+s like having maximum 2 dimensions.
+ More information about NumPy equivalents of Matlab operations can be found
+ at the documentation page of the library.
+ 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "ref:numpyDOC"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection*
+Matplotlib
+\end_layout
+
+\begin_layout Standard
+Matplotlib is an open-source 2-D plotting library that is widely used by
+ Python applications.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+placement h
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\begin_inset Caption
+
+\begin_layout Plain Layout
+A sample graph generated by Matplotlib
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Graphics
+	filename images/matplot_log.png
+	scale 50
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection*
+TensorFlow
+\end_layout
+
+\begin_layout Subsection*
+PyBrain
+\end_layout
+
+\begin_layout Subsection*
+Theano
+\end_layout
+
+\begin_layout Subsection*
+ScikitLearn
+\end_layout
+
+\begin_layout Subsection*
+Keras
+\end_layout
+
+\begin_layout Subsection*
+Libraries with Python Bindings
+\end_layout
+
+\begin_layout Standard
+Caffee, Theano
+\end_layout
+
 \begin_layout Section
 Computer Vision Alternative (OpenCV)
 \end_layout
@@ -445,7 +867,7 @@ Each input to the neural network will be in the form a vector (784x1).
 placement h
 wide false
 sideways false
-status open
+status collapsed
 
 \begin_layout Plain Layout
 \begin_inset Caption
@@ -470,13 +892,82 @@ Number matrix representation
 \paragraph_spacing double
 \align center
 \begin_inset Tabular
-<lyxtabular version="3" rows="4" columns="4">
+<lyxtabular version="3" rows="5" columns="5">
 <features tabularvalignment="middle">
 <column alignment="center" valignment="top" width="0">
 <column alignment="center" valignment="top" width="0">
 <column alignment="center" valignment="top" width="0">
 <column alignment="center" valignment="top" width="0">
+<column alignment="center" valignment="top" width="0">
 <row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\series bold
+R/C
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\series bold
+1
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\series bold
+2
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\series bold
+...
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\series bold
+28
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\series bold
+1
+\end_layout
+
+\end_inset
+</cell>
 <cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
 \begin_inset Text
 
@@ -490,7 +981,7 @@ Number matrix representation
 \begin_inset Text
 
 \begin_layout Plain Layout
-...
+0
 \end_layout
 
 \end_inset
@@ -519,6 +1010,17 @@ Number matrix representation
 \begin_inset Text
 
 \begin_layout Plain Layout
+
+\series bold
+2
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
 0
 \end_layout
 
@@ -528,7 +1030,7 @@ Number matrix representation
 \begin_inset Text
 
 \begin_layout Plain Layout
-...
+0
 \end_layout
 
 \end_inset
@@ -553,6 +1055,17 @@ Number matrix representation
 </cell>
 </row>
 <row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\series bold
+.
+\end_layout
+
+\end_inset
+</cell>
 <cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
 \begin_inset Text
 
@@ -566,7 +1079,7 @@ Number matrix representation
 \begin_inset Text
 
 \begin_layout Plain Layout
-...
+0.7
 \end_layout
 
 \end_inset
@@ -575,7 +1088,7 @@ Number matrix representation
 \begin_inset Text
 
 \begin_layout Plain Layout
-
+...
 \end_layout
 
 \end_inset
@@ -595,6 +1108,17 @@ Number matrix representation
 \begin_inset Text
 
 \begin_layout Plain Layout
+
+\series bold
+28
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
 0.2
 \end_layout
 
@@ -604,7 +1128,7 @@ Number matrix representation
 \begin_inset Text
 
 \begin_layout Plain Layout
-..
+0.1
 \end_layout
 
 \end_inset
@@ -613,7 +1137,7 @@ Number matrix representation
 \begin_inset Text
 
 \begin_layout Plain Layout
-
+...
 \end_layout
 
 \end_inset
@@ -649,7 +1173,7 @@ And if plotted according to each pixel's blackness value, such a number
 \begin_inset Float figure
 wide false
 sideways false
-status open
+status collapsed
 
 \begin_layout Plain Layout
 
@@ -700,6 +1224,20 @@ status open
 
 \begin_layout Plain Layout
 
+\begin_inset Caption
+
+\begin_layout Plain Layout
+
+Vector for number 4 in Python script
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+
 # Vector for number 4
 \end_layout
 
@@ -730,10 +1268,6 @@ placement h
 wide false
 sideways false
 status open
-
-\begin_layout Plain Layout
-
-\end_layout
 
 \begin_layout Plain Layout
 \begin_inset Caption
@@ -934,6 +1468,13 @@ Last words.
 
 \begin_layout Chapter*
 Appendix 1: Code
+\begin_inset CommandInset label
+LatexCommand label
+name "chap:Appendix-1:-Code"
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Standard
@@ -976,6 +1517,47 @@ key "ref:mnist"
 
 LeCun, Y.
  Mnist database of handwritten digits, http://yann.lecun.com/exdb/mnist/
+\end_layout
+
+\begin_layout Bibliography
+\begin_inset CommandInset bibitem
+LatexCommand bibitem
+key "ref:pypi"
+
+\end_inset
+
+PyPi, Python Library, https://pypi.python.org/pypi
+\end_layout
+
+\begin_layout Bibliography
+\begin_inset CommandInset bibitem
+LatexCommand bibitem
+key "ref:numpy"
+
+\end_inset
+
+Numpy, http://www.numpy.org/
+\end_layout
+
+\begin_layout Bibliography
+\begin_inset CommandInset bibitem
+LatexCommand bibitem
+key "ref:numpyDOC"
+
+\end_inset
+
+Numpy documentation, https://docs.scipy.org/doc/numpy-dev/user/numpy-for-matlab-us
+ers.html
+\end_layout
+
+\begin_layout Bibliography
+\begin_inset CommandInset bibitem
+LatexCommand bibitem
+key "ref:matplotlib"
+
+\end_inset
+
+Matplotlib, http://matplotlib.org/
 \end_layout
 
 \begin_layout Bibliography
