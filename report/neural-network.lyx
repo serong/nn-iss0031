@@ -352,10 +352,6 @@ This project takes a brief look into neural network as modelling tools,
 \end_layout
 
 \begin_layout Standard
-// Libraries?
-\end_layout
-
-\begin_layout Standard
 
 \end_layout
 
@@ -951,7 +947,185 @@ Optimization
 \begin_layout Standard
 The aim of the training is to minimize the cost function.
  For this optimization methods are used.
- One 
+ One way to optimize the cost function is to use gradient descent.
+\end_layout
+
+\begin_layout Standard
+Gradient descent is a menans of taking a step in the direction that does
+ the most to decrease our cost function.
+ We use derivatives to decide which way to take a small step in order to
+ make the cost function smaller.
+ Derivatives can give us an idea about the slope of the point we're at in
+ the cost function, and like a ball following a slope down, we can follow
+ it.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+placement H
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption
+
+\begin_layout Plain Layout
+Gradient descent on error function.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Graphics
+	filename images/descent.png
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+For example, for C that 
+\begin_inset Formula $C(v_{1},v_{2})$
+\end_inset
+
+, making small changes in 
+\begin_inset Formula $v_{1}$
+\end_inset
+
+ and 
+\begin_inset Formula $v_{2}$
+\end_inset
+
+ would cause a small changes in C.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{equation}
+\triangle C\equiv\frac{\delta C}{\delta v_{1}}\triangle v_{1}+\frac{\delta C}{\delta v_{2}}v_{2}
+\end{equation}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{equation}
+\triangle v=\left[\begin{array}{c}
+\triangle v_{1}\\
+\triangle v_{2}
+\end{array}\right]\; and\;\nabla C=\left[\begin{array}{c}
+\frac{\delta C}{\delta v_{1}}\\
+\frac{\delta C}{\delta v_{2}}
+\end{array}\right]
+\end{equation}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+The amount of we need to take to make C smaller can be calculated as the
+ following formula, where 
+\begin_inset Formula $\eta$
+\end_inset
+
+ is the learning rate and 
+\begin_inset Formula $\eta>0$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{equation}
+\triangle v=-\eta\nabla C
+\end{equation}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+But our initial starting point can make the optimization stop in a local
+ minimum, and for that reason it's sometimes a good idea to train the network
+ with different starting points.
+\end_layout
+
+\begin_layout Subsubsection
+- Some optimization methods: 
+\end_layout
+
+\begin_layout Enumerate
+
+\emph on
+Backpropogation method:
+\emph default
+ A very common gradient descent based method.
+ It requires a desired output for each input value, therefore it's more
+ of a supervised learning tool.
+ Gradient descent based methods often find the best solution within their
+ starting point, so achieving a global result (finding the global minimum)
+ is often has randomness to it.
+\end_layout
+
+\begin_layout Enumerate
+
+\emph on
+Genetic algorithm:
+\emph default
+ It is a global optimization method.
+ Since it searches in many directions, the probability of finding a global
+ minimum increases.
+ And it makes it a very efficient tool for difficult non-linear functions.
+\end_layout
+
+\begin_layout Enumerate
+Simulated annealing: SA is based on physical annealing process where physical
+ substances go from a higher state of energy to a smaller one.
+ A concrete example is heating metal to molten state and letting it slowly
+ cooldown until it becomes solid again.
+ An in application to neural networks, one distinct difference is that SA
+ depends on user defined parameters in contrast to GA's dynamically assigned
+ ones.
+ Also it permits increasing 
+\begin_inset Quotes eld
+\end_inset
+
+energy state
+\begin_inset Quotes erd
+\end_inset
+
+, meaning accepting points on cost function with higher error values.
+ This helps escaping local minimimums.
+ 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "bib:annealing"
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Section
@@ -2781,6 +2955,17 @@ key "book:heaton"
 
 Heaton, J.
  Introduction to math of neural networks, Heaton Research, (2012)
+\end_layout
+
+\begin_layout Bibliography
+\begin_inset CommandInset bibitem
+LatexCommand bibitem
+key "bib:annealing"
+
+\end_inset
+
+Rere, L.M., Fanany, M.I, Arymurthy, A.M., Simulated annealing algorithm for deep
+ learning, Procedia Computer Science, Volume 72, (2015) Pages 137-144
 \end_layout
 
 \begin_layout Bibliography
