@@ -323,38 +323,6 @@ LatexCommand tableofcontents
 
 \end_layout
 
-\begin_layout Chapter*
-Abstract
-\end_layout
-
-\begin_layout Standard
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-addcontentsline{toc}{chapter}{Abstract}
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
-This project takes a brief look into neural network as modelling tools,
- as well as their implementation in Python programming language.
- Therefore it includes both theoretical and practical information in those
- areas.
- 
-\end_layout
-
-\begin_layout Standard
-
-\end_layout
-
 \begin_layout Chapter
 Introduction
 \end_layout
@@ -375,40 +343,79 @@ pagenumbering{arabic}
 
 \end_layout
 
-\begin_layout Standard
-// Some things about why neural networks are important.
- Teaching tools, data complexity and vast amount of data.
- 
-\end_layout
-
-\begin_layout Standard
-// And the need to use more open sourced alternative to make the teaching
- and learning more ??? as well as taking a deeper look into the subject
- beyond using ready made function.
-\end_layout
-
 \begin_layout Section
 Aim of the project
 \end_layout
 
 \begin_layout Standard
-// Aim of the project and so on.
-\end_layout
-
-\begin_layout Section
-Approach
-\end_layout
-
-\begin_layout Standard
-// Deeper look into NN and getting familiar in 
-\end_layout
-
-\begin_layout Section
-Choices
+The aim of the project is to get a better understanding of neural networks
+ and to get familiar with Python programming language and its libraries
+ as tools for neural networks, as well as their implementations.
+ Therefore it includes both theoretical and practical information in those
+ areas.
 \end_layout
 
 \begin_layout Standard
-// Library choice which will be discussed more thoroughly in the later chapters.
+For the theoretical part, in addition to information about neural network,
+ I'll also look into Python libraries and their features.
+ And for the practical part, more information can be found in the following
+ section.
+\end_layout
+
+\begin_layout Section
+The problem and the approach
+\end_layout
+
+\begin_layout Standard
+The practical problem to be solved for the project is 
+\emph on
+digit recognition using neural network implemented in Python programming
+ language
+\emph default
+.
+ 
+\end_layout
+
+\begin_layout Standard
+For training and test, I have used an already modified and prepared dataset
+ (MNIST) that comes with statistics about certain machine learning tasks
+ and their performance on the data, which I hope will offer a good benchmark
+ for comparing performance.
+\end_layout
+
+\begin_layout Standard
+For example, single layer neural network is shown to have an %8.4 error rate
+ on test data, and a 2-layer network with total 300 hidden nodes using mean
+ square error achieves %4.7 error.
+ 
+\end_layout
+
+\begin_layout Standard
+For my project I aim to reach a %10-15 error due to not being familiar with
+ required training times for such a dataset and not having a deep knowledge
+ in neural networks.
+\end_layout
+
+\begin_layout Standard
+My initial plan is to start with a single hidden layer network with modest
+ amount of nodes and to use gradient descent for optimization, and later
+ try to improve the results.
+\end_layout
+
+\begin_layout Standard
+For Python libraries (which are discussed in Chapter 3), I plan to use a
+ library that will offer a good balance between ease of use and 
+\begin_inset Quotes eld
+\end_inset
+
+low level
+\begin_inset Quotes erd
+\end_inset
+
+ implementation.
+ I have noticed that an opinionated library like TensorFlow requires also
+ a considerable amount of time to get familiar with the library itself,
+ which would make it harder to stick to my goals for the project.
 \end_layout
 
 \begin_layout Chapter
@@ -421,7 +428,7 @@ In this chapter, we take a brief technical look at neural networks in order
 \end_layout
 
 \begin_layout Section
-Biological Model
+Biological model
 \end_layout
 
 \begin_layout Standard
@@ -503,7 +510,7 @@ Human brain includes roughly over
 \end_layout
 
 \begin_layout Section
-Basic Theory
+Basic theory
 \end_layout
 
 \begin_layout Standard
@@ -527,7 +534,7 @@ Smallest element of a neural network is a node.
 \end_layout
 
 \begin_layout Subsection
-Threshold Logic Unit
+Threshold logic unit
 \end_layout
 
 \begin_layout Standard
@@ -592,7 +599,7 @@ activation.
 \end_layout
 
 \begin_layout Subsection
-Activation Functions 
+Activation functions 
 \end_layout
 
 \begin_layout Standard
@@ -671,7 +678,7 @@ status open
 \begin_inset Caption
 
 \begin_layout Plain Layout
-sigmoid (left) and hyperbolic tangent functions.
+Sigmoid (left) and hyperbolic tangent functions.
 \end_layout
 
 \end_inset
@@ -1128,14 +1135,6 @@ key "bib:annealing"
 
 \end_layout
 
-\begin_layout Section
-Classification
-\end_layout
-
-\begin_layout Section
-Advantages
-\end_layout
-
 \begin_layout Chapter
 Python
 \end_layout
@@ -1149,7 +1148,7 @@ This chapter includes information about certain Python libraries that offer
 \end_layout
 
 \begin_layout Section
-Language and Libraries
+Language and libraries
 \end_layout
 
 \begin_layout Standard
@@ -1846,7 +1845,7 @@ Minimalist.
 \end_layout
 
 \begin_layout Subsection*
-Libraries with Python Bindings
+Libraries with Python bindings
 \end_layout
 
 \begin_layout Standard
@@ -1867,7 +1866,7 @@ mxnet
 \end_layout
 
 \begin_layout Section
-Computer Vision Alternative (OpenCV)
+Computer vision alternative (OpenCV)
 \end_layout
 
 \begin_layout Standard
@@ -2097,7 +2096,7 @@ Each input to the neural network will be in the form a vector (784x1).
 placement h
 wide false
 sideways false
-status collapsed
+status open
 
 \begin_layout Plain Layout
 \begin_inset Caption
@@ -2403,11 +2402,7 @@ And if plotted according to each pixel's blackness value, such a number
 \begin_inset Float figure
 wide false
 sideways false
-status collapsed
-
-\begin_layout Plain Layout
-
-\end_layout
+status open
 
 \begin_layout Plain Layout
 \begin_inset Caption
@@ -2664,19 +2659,46 @@ testing dataset
 \end_layout
 
 \begin_layout Section
-The Neural Network 
+The neural network 
 \end_layout
 
 \begin_layout Subsection
 Layers
 \end_layout
 
-\begin_layout Subsection
-Cost Function
+\begin_layout Subsubsection*
+- Input layer:
+\end_layout
+
+\begin_layout Standard
+Input layer is of a size of 784, due to the each input image having a size
+ of 28x28 pixels.
+\end_layout
+
+\begin_layout Subsubsection*
+- Output layer:
+\end_layout
+
+\begin_layout Standard
+Output layer has 10 nodes, each representing a digit, or more precisely,
+ the probability of being that number.
+ The sum of all nodes in the output layer is 1.
+\end_layout
+
+\begin_layout Subsubsection*
+- Hidden layer:
+\end_layout
+
+\begin_layout Standard
+Initial neural network structure will have only 1 hidden layer.
 \end_layout
 
 \begin_layout Subsection
-Optimization Method
+Cost function
+\end_layout
+
+\begin_layout Subsection
+Optimization method
 \end_layout
 
 \begin_layout Subsection
@@ -2714,7 +2736,7 @@ status open
 
 
 \backslash
-addcontentsline{toc}{chapter}{Appendix 1: Lyx}
+addcontentsline{toc}{chapter}{Appendix 1: Code}
 \end_layout
 
 \end_inset
