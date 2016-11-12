@@ -428,8 +428,538 @@ In this chapter, we take a brief technical look at neural networks in order
 Biological Model
 \end_layout
 
+\begin_layout Standard
+Taking a look at the biological model that inspired artificial neural networks
+ can help us understand their structure better.
+ But since the biological model of how neuron and brain work is highly complex,
+ I think it's beneficial to take a brief look at it.
+\end_layout
+
+\begin_layout Standard
+A typical neuron can be thought as a signal processing device.
+ 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "book:gurney"
+
+\end_inset
+
+ This happens through positively or negatively charged ions.
+ Each neuron is connected many others via synapses.
+ Inputs to the neuron summed up and if it's over a certain threshold the
+ neuron is excited.
+ In general, an neuron can excited or inhibited.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+placement h
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption
+
+\begin_layout Plain Layout
+Neuron structure.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Graphics
+	filename images/neuron_structure.jpg
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+This basic model is very close to how a TLU (threshold logic unit) works,
+ which will be discussed in the next section.
+\end_layout
+
+\begin_layout Standard
+Human brain includes roughly over 
+\series bold
+100 trillion
+\series default
+ such connections, which forms the basis of how we learn new things and
+ remember.
+ A neural network is formed of simplified version of biological neurons
+ and their connections, and are capable of making approximations for given
+ data, after necessary training.
+\end_layout
+
 \begin_layout Section
 Basic Theory
+\end_layout
+
+\begin_layout Standard
+To give a formal definition, an artificial neural network is an assembly
+ of interconnected simple processing elements (nodes), whose functionality
+ is stored in the interconnections' strengths (weights).
+ 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "book:gurney"
+
+\end_inset
+
+ 
+\end_layout
+
+\begin_layout Standard
+Smallest element of a neural network is a node.
+ Taking a look at TLU, a basic node structure, could make understanding
+ how neural networks work easier.
+\end_layout
+
+\begin_layout Subsection
+Threshold Logic Unit
+\end_layout
+
+\begin_layout Standard
+A TLU unit can be explained as below.
+ 
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+placement h
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption
+
+\begin_layout Plain Layout
+A TLU
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Graphics
+	filename images/tlu.png
+	scale 75
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+In this above example, the sum of weighted inputs is called 
+\series bold
+activation.
+ Activation function
+\series default
+ (a unit step function in this case) takes this activation and the node's
+ bias (
+\begin_inset Formula $\theta$
+\end_inset
+
+) and produces an output accordingly.
+ So the output of a node depends on the weights, inputs, bias and the activation
+ function type.
+ 
+\end_layout
+
+\begin_layout Subsection
+Activation Functions 
+\end_layout
+
+\begin_layout Standard
+Activation functions affect the way node produces outputs, meaning they
+ also affect the way information flows through the layers of the neural
+ network.
+ So we need to choose activation functions according to our goal and network
+ structure.
+ 
+\end_layout
+
+\begin_layout Standard
+For example, a sigmoid function would be a better choice if derivations
+ come into the equation.
+ Two most used activation functions are hyperbolic tangent (eq.
+ 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "eq:hyperbolic"
+
+\end_inset
+
+) and sigmoid functions (eq.
+ 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "eq:sigmoid"
+
+\end_inset
+
+).
+ 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "book:heaton"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{equation}
+f(x)=\frac{e^{2x}-1}{e^{2x}+1}\label{eq:hyperbolic}
+\end{equation}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{equation}
+f(x)=\frac{1}{1+e^{-x}}\label{eq:sigmoid}
+\end{equation}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+placement h
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption
+
+\begin_layout Plain Layout
+sigmoid (left) and hyperbolic tangent functions.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Graphics
+	filename images/sigmoid.jpeg
+	scale 50
+
+\end_inset
+
+
+\begin_inset space \quad{}
+\end_inset
+
+
+\begin_inset Graphics
+	filename images/tanh.jpeg
+	scale 50
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Another important activation function is called 
+\series bold
+Softmax
+\series default
+ which is mostly used in the output layer to give output as a probability.
+ More precisely it produces a K sized vector of real values in the range
+ of (0,1) that add up to 1 when summed.
+\end_layout
+
+\begin_layout Standard
+This is helpful in tasks like digit recognition where the output layer size
+ is bigger than 1.
+\end_layout
+
+\begin_layout Subsection
+Layers
+\end_layout
+
+\begin_layout Standard
+After nodes, the next structure in a network is layers.
+ A neural network has two special layers.
+ Input and output layers, which depend on the data structure.
+ The actual inner structure of the neural network depends on hidden layers
+ between input and output layers, which effect the number of weights and
+ therefore directly the training time of the network.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+placement H
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\begin_inset Caption
+
+\begin_layout Plain Layout
+A neural network with 2 hidden layers.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Graphics
+	filename images/neural_net.jpeg
+	scale 50
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Section
+Training
+\end_layout
+
+\begin_layout Standard
+A neural network gives us a model derived from a set of collected input
+ and output.
+ But to achieve this, we need to 
+\series bold
+train
+\series default
+ the neural network.
+ For neural networks, training means altering weights and biases inside
+ the network according to the error in the each iteration of the training.
+\end_layout
+
+\begin_layout Standard
+Training dataset includes an input and an output for each example.
+ During training the training data input is fed to the neural network and
+ its output is compared to the training data output.
+ With this comparison we acquire an error, and the objective of training
+ is minimizing this error.
+\end_layout
+
+\begin_layout Standard
+So in its basics, training is optimization of error for the neural network.
+\end_layout
+
+\begin_layout Subsection
+Cost function
+\end_layout
+
+\begin_layout Standard
+Cost function can be thought as the objective function in generic optimization
+ problems.
+ It is a representation of the global error in the network and a measurement
+ of how well a neural network performs to the entire training dataset.
+ It also depends on weights and biases.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{equation}
+C=F(w,\theta)
+\end{equation}
+
+\end_inset
+
+
+\begin_inset Formula 
+\begin{equation}
+C\rightarrow min
+\end{equation}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+There are several differents methods for cost function.
+ But some basic cost functions are:
+\end_layout
+
+\begin_layout Enumerate
+Sum of square errors
+\end_layout
+
+\begin_layout Enumerate
+Mean square errors
+\end_layout
+
+\begin_layout Enumerate
+Root mean square
+\end_layout
+
+\begin_layout Standard
+Although it should be noted that MSE is one of the most common cost functions
+ used in neural networks.
+ But there are exceptions, like the Levenberg Marquardt Algorithm requiring
+ SSE.
+ 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "book:heaton"
+
+\end_inset
+
+ 
+\end_layout
+
+\begin_layout Standard
+A 
+\series bold
+linear error
+\series default
+ is simply the difference of ideal output (i) and actual output (a).
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{equation}
+E=(i-a)
+\end{equation}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+
+\series bold
+MSE 
+\series default
+(mean square error) as mentioned before is the most common cost function.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{equation}
+MSE=\frac{1}{n}\sum_{i=1}^{n}E^{2}
+\end{equation}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+
+\series bold
+SSE
+\series default
+ (sum of square errors) can be seen below.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{equation}
+SSE=\frac{1}{2}\sum_{p}E^{2}
+\end{equation}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+And 
+\series bold
+RMS 
+\series default
+(root mean square) function is very close to MSE.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{equation}
+RMS=\sqrt{\frac{1}{n}\sum_{i=1}^{n}E^{2}}
+\end{equation}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection
+Optimization
+\end_layout
+
+\begin_layout Standard
+The aim of the training is to minimize the cost function.
+ For this optimization methods are used.
+ One 
+\end_layout
+
+\begin_layout Section
+Classification
+\end_layout
+
+\begin_layout Section
+Advantages
 \end_layout
 
 \begin_layout Chapter
@@ -2229,6 +2759,28 @@ Neiger, V.
 Handwritten digits recognition using openCV
 \emph default
 , Western University, (2015)
+\end_layout
+
+\begin_layout Bibliography
+\begin_inset CommandInset bibitem
+LatexCommand bibitem
+key "book:gurney"
+
+\end_inset
+
+Gurney, K.
+ An introduction to neural networks, UCL-Press (1997)
+\end_layout
+
+\begin_layout Bibliography
+\begin_inset CommandInset bibitem
+LatexCommand bibitem
+key "book:heaton"
+
+\end_inset
+
+Heaton, J.
+ Introduction to math of neural networks, Heaton Research, (2012)
 \end_layout
 
 \begin_layout Bibliography
