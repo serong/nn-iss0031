@@ -934,12 +934,211 @@ Allows complex architectures.
 Theano
 \end_layout
 
+\begin_layout Standard
+Theano is developed in University of Montreal's Institute of Learning Algorithms.
+ It's used in the university's research as well as its machine learning
+ classes.
+ 
+\end_layout
+
+\begin_layout Standard
+In general, it's a library used to define, optimize and evaluate expression
+ related to multi-dimensional arrays.
+ 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "ref:theano"
+
+\end_inset
+
+ 
+\end_layout
+
+\begin_layout Subsubsection*
+- Features: 
+\end_layout
+
+\begin_layout Enumerate
+NumPy integration
+\end_layout
+
+\begin_layout Enumerate
+Faster operations with GPU usage.
+\end_layout
+
+\begin_layout Enumerate
+Efficient derivations
+\end_layout
+
+\begin_layout Enumerate
+Extensive testing suite.
+\end_layout
+
+\begin_layout Standard
+If offers speeds closer to compiled C code implementations, and it comes
+ with several optimizations for symbolic expressions.
+ ( 
+\begin_inset Formula $x*y/y->x$
+\end_inset
+
+ )
+\end_layout
+
+\begin_layout Standard
+\begin_inset listings
+lstparams "language=Python"
+inline false
+status open
+
+\begin_layout Plain Layout
+
+\begin_inset Caption
+
+\begin_layout Plain Layout
+Code sample
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+
+import theano 
+\end_layout
+
+\begin_layout Plain Layout
+
+from theano import tensor
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+a = tensor.dscalar() 
+\end_layout
+
+\begin_layout Plain Layout
+
+b = tensor.dscalar()
+\end_layout
+
+\begin_layout Plain Layout
+
+c = a + b
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+f = theano.function([a,b], c)
+\end_layout
+
+\begin_layout Plain Layout
+
+assert 4.0 == f(1.5, 2.5)
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
 \begin_layout Subsection*
 ScikitLearn
 \end_layout
 
+\begin_layout Standard
+Scikit-Learn is a machine learning library built upon NumPy, SciPy and matplotli
+b libraries.
+ It can handle both supervised and unsupervised learning, and supports following
+ tasks:
+\end_layout
+
+\begin_layout Enumerate
+Classification
+\end_layout
+
+\begin_layout Enumerate
+Regression
+\end_layout
+
+\begin_layout Enumerate
+Clustering
+\end_layout
+
+\begin_layout Enumerate
+Dimensionality reduction
+\end_layout
+
+\begin_layout Enumerate
+Model selection
+\end_layout
+
+\begin_layout Enumerate
+Data preprocessing
+\end_layout
+
+\begin_layout Standard
+Its advantage lies in the fact that it has extensive documentation and a
+ lot of contribution from experts in machine learning field.
+ It also provides a consisten interface to most machine learning tasks in
+ a single library.
+ 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "ref:scikitWhy"
+
+\end_inset
+
+
+\end_layout
+
 \begin_layout Subsection*
 Keras
+\end_layout
+
+\begin_layout Standard
+Keras is a library dedicated to neural network tasks.
+ It can run on TensorFlow or Theano libraries, therefore providing their
+ advantages like speed, GPU usage and so on.
+ Its focus is on being a library that enables fast experimentations.
+ 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "ref:keras"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsubsection*
+- Features: 
+\end_layout
+
+\begin_layout Enumerate
+Supports both convolutional and recurrent neural networks, as well as combinatio
+n of both.
+\end_layout
+
+\begin_layout Enumerate
+GPU support.
+\end_layout
+
+\begin_layout Enumerate
+Fast prototyping.
+\end_layout
+
+\begin_layout Enumerate
+Minimalist.
 \end_layout
 
 \begin_layout Subsection*
@@ -947,11 +1146,197 @@ Libraries with Python Bindings
 \end_layout
 
 \begin_layout Standard
-Caffee, Theano
+In addition to the above libraries, there are libraries that were written
+ in other languages but offers Python bindings:
+\end_layout
+
+\begin_layout Enumerate
+FANN: Fast Artificial Neural Network Library
+\end_layout
+
+\begin_layout Enumerate
+Caffe
+\end_layout
+
+\begin_layout Enumerate
+mxnet
 \end_layout
 
 \begin_layout Section
 Computer Vision Alternative (OpenCV)
+\end_layout
+
+\begin_layout Standard
+Another approach to digit recognition can be done using a computer vision
+ library like OpenCV.
+ OpenCV is a cross-platform computer vision library that offers interface
+ for Java, C++, Python and C.
+ It's possible to use classifiers like k-nearest neighbor, support vector
+ machine and random forest.
+\end_layout
+
+\begin_layout Standard
+MNIST database offers a list of machine learning tools and their performances
+ on the MNIST datasets.
+ This can give us an idea about the comparison between neural network and
+ some methods used in computer vision.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float table
+placement H
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption
+
+\begin_layout Plain Layout
+Method comparison.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset VSpace medskip*
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Tabular
+<lyxtabular version="3" rows="5" columns="2">
+<features tabularvalignment="middle">
+<column alignment="center" valignment="top" width="0">
+<column alignment="center" valignment="top" width="0">
+<row>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\series bold
+Methods
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\series bold
+Test Error Range
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Neural Networks
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+% 0.35 - 4.7
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Convolutional Networks
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+% 0.23 - 1.7
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+K-Nearest Neighbor
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+% 0.52 - 5.0
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Support Vector Machines
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+% 0.56 - 1.4
+\end_layout
+
+\end_inset
+</cell>
+</row>
+</lyxtabular>
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Chapter
@@ -1422,7 +1807,7 @@ Datasets
 \end_layout
 
 \begin_layout Plain Layout
-\begin_inset VSpace smallskip
+\begin_inset VSpace medskip
 \end_inset
 
 
@@ -1437,7 +1822,7 @@ Datasets
 <column alignment="center" valignment="top" width="0">
 <column alignment="center" valignment="top" width="0">
 <row>
-<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+<cell alignment="center" valignment="top" usebox="none">
 \begin_inset Text
 
 \begin_layout Plain Layout
@@ -1448,7 +1833,7 @@ Dataset
 
 \end_inset
 </cell>
-<cell alignment="center" valignment="top" topline="true" bottomline="true" rightline="true" usebox="none">
+<cell alignment="center" valignment="top" usebox="none">
 \begin_inset Text
 
 \begin_layout Plain Layout
@@ -1459,7 +1844,7 @@ Inputs
 
 \end_inset
 </cell>
-<cell alignment="center" valignment="top" topline="true" bottomline="true" rightline="true" usebox="none">
+<cell alignment="center" valignment="top" usebox="none">
 \begin_inset Text
 
 \begin_layout Plain Layout
@@ -1652,7 +2037,11 @@ key "ref:mnist"
 \end_inset
 
 LeCun, Y.
- Mnist database of handwritten digits, http://yann.lecun.com/exdb/mnist/
+ 
+\emph on
+Mnist database of handwritten digits
+\emph default
+, http://yann.lecun.com/exdb/mnist/
 \end_layout
 
 \begin_layout Bibliography
@@ -1662,7 +2051,11 @@ key "ref:pypi"
 
 \end_inset
 
-PyPi, Python Library, https://pypi.python.org/pypi
+
+\emph on
+PyPi, Python Library
+\emph default
+, https://pypi.python.org/pypi
 \end_layout
 
 \begin_layout Bibliography
@@ -1672,7 +2065,11 @@ key "ref:numpy"
 
 \end_inset
 
-Numpy, http://www.numpy.org/
+
+\emph on
+Numpy
+\emph default
+, http://www.numpy.org/
 \end_layout
 
 \begin_layout Bibliography
@@ -1682,8 +2079,15 @@ key "ref:numpyDOC"
 
 \end_inset
 
-Numpy documentation, https://docs.scipy.org/doc/numpy-dev/user/numpy-for-matlab-us
-ers.html
+
+\emph on
+Numpy
+\emph default
+ 
+\emph on
+documentation
+\emph default
+, https://docs.scipy.org/doc/numpy-dev/user/numpy-for-matlab-users.html
 \end_layout
 
 \begin_layout Bibliography
@@ -1693,7 +2097,11 @@ key "ref:matplotlib"
 
 \end_inset
 
-Matplotlib, http://matplotlib.org/
+
+\emph on
+Matplotlib
+\emph default
+, http://matplotlib.org/
 \end_layout
 
 \begin_layout Bibliography
@@ -1703,7 +2111,11 @@ key "ref:tensor"
 
 \end_inset
 
-TensorFlow, https://www.tensorflow.org/
+
+\emph on
+TensorFlow
+\emph default
+, https://www.tensorflow.org/
 \end_layout
 
 \begin_layout Bibliography
@@ -1713,7 +2125,11 @@ key "ref:tensorGood"
 
 \end_inset
 
-Kuster, D., The good, bad and ugly of TensorFlow, 
+Kuster, D., 
+\emph on
+The good, bad and ugly of TensorFlow
+\emph default
+, 
 \emph on
 KD Nuggets
 \emph default
@@ -1727,7 +2143,92 @@ key "ref:pybrain"
 
 \end_inset
 
-PyBrain, http://pybrain.org/
+
+\emph on
+PyBrain
+\emph default
+, http://pybrain.org/
+\end_layout
+
+\begin_layout Bibliography
+\begin_inset CommandInset bibitem
+LatexCommand bibitem
+key "ref:theano"
+
+\end_inset
+
+
+\emph on
+Theano
+\emph default
+, http://deeplearning.net/software/theano/
+\end_layout
+
+\begin_layout Bibliography
+\begin_inset CommandInset bibitem
+LatexCommand bibitem
+key "ref:scikit"
+
+\end_inset
+
+
+\emph on
+Scikit-learn
+\emph default
+, http://scikit-learn.org/stable/
+\end_layout
+
+\begin_layout Bibliography
+\begin_inset CommandInset bibitem
+LatexCommand bibitem
+key "ref:scikitWhy"
+
+\end_inset
+
+Lorica, B., 
+\emph on
+Six reasons why I recommend scikit-learn
+\emph default
+, https://www.oreilly.com/
+\end_layout
+
+\begin_layout Bibliography
+\begin_inset CommandInset bibitem
+LatexCommand bibitem
+key "ref:keras"
+
+\end_inset
+
+
+\emph on
+Keras
+\emph default
+, https://keras.io/
+\end_layout
+
+\begin_layout Bibliography
+\begin_inset CommandInset bibitem
+LatexCommand bibitem
+key "ref:opencv"
+
+\end_inset
+
+OpenCV, http://opencv.org/
+\end_layout
+
+\begin_layout Bibliography
+\begin_inset CommandInset bibitem
+LatexCommand bibitem
+key "bib:neiger"
+
+\end_inset
+
+Neiger, V.
+ 
+\emph on
+Handwritten digits recognition using openCV
+\emph default
+, Western University, (2015)
 \end_layout
 
 \begin_layout Bibliography
