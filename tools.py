@@ -25,6 +25,10 @@ def sigmoid(x):
     """
     return 1.0 / (1.0 + np.exp(-x))
 
+def sigmoid_prime(x):
+    """ Derivation sigmoid(x) """
+    return sigmoid(x) * (1 - sigmoid(x))
+
 def hyperbolic(x):
     """ Hyperbolic tangent activation function
         to be used with a neural network implementation.

@@ -7,9 +7,10 @@
 
 import pickle, gzip
 import numpy as np
-PATH = "data/mnist_data.pkl.gz"
 
 class MnistData():
+    dim = 784
+
     def __init__(self, path):
         """ Load the raw data from a pickle file.
             Pickle file has 3 tuples of (image, label) which are:
