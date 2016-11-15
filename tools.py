@@ -16,5 +16,16 @@ def visualize_number(a_vector):
     plt.show()
 
 
+def sigmoid(x):
+    """ A sigmoid activation function to be
+        used with a neural network implementation
+    """
+    return 1.0 / (1.0 + np.exp(-x))
 
+def hyperbolic(x):
+    """ Hyperbolic tangent activation function
+        to be used with a neural network implementation.
+    """
+
+    return (np.exp(2*x) - 1.0) / (np.exp(2*x) + 1.0)
 
