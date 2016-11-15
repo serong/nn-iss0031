@@ -1,4 +1,5 @@
 import numpy as np
+import tools as t
 
 class NeuralNetwork(object):
     bias_filename = "biases.npy"
@@ -67,6 +68,25 @@ class NeuralNetwork(object):
         w = np.load(self.weights_filename)
         self.weights = w.tolist()
 
+    def feed_forward(self, a):
+        """ a is our input, and it's in the form of columnn vector.
+            Just as np.random.randn(3,1) would produces a (3x1)
+            column vector.
+        """
+
+        # With each step, activation of layer is updated to represent
+        # the activation of the next layer.
+        # For a [2,3,1] neural network.
+        #   Step 1: Input to Hidden Layer   w(3x2) x a(2x1) + b(3x1) -> sigmoid -> a' (3x1)
+        #   Step 2: Hidden Layer to Output  w(1x3) x a(3x1) + b(1x1) -> sigmoid -> a' which is the output.
+        for b, w in zip(self.biases, self.weights):
+            a = t.sigmoid(np.dot(w, a) + b)
+
+        return a
+
 
 
 nn = NeuralNetwork([2, 3, 1])
+rand_inp = np.random.randn(2, 1)
+
+print nn.feed_forward(rand_inp)

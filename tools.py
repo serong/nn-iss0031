@@ -19,6 +19,9 @@ def visualize_number(a_vector):
 def sigmoid(x):
     """ A sigmoid activation function to be
         used with a neural network implementation
+
+        We're using np.exp because if x is a vector, then
+        numpy applies it as elementwise.
     """
     return 1.0 / (1.0 + np.exp(-x))
 
