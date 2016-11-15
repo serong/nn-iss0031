@@ -12,11 +12,12 @@ test_data = data.get_test_data()
 validation_data = data.get_validation_data()
 
 net = network.NeuralNetwork([784, 30, 10])
+net.load_state()
 
 number3 = validation_data[0]
 
 print ">>> Training: "
-net.SGD(training_data, 10, 10, 3.0)
+net.SGD(training_data, 10, 10, 3.0, test_data)
 
 
 

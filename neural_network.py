@@ -122,7 +122,8 @@ class NeuralNetwork(object):
 
             # Evaluating current state with test data.
             if test_data:
-                print ">   Epoch {0}: {1} / {2}".format(e, self.evaluate(test_data), n_test)
+                print ">   Epoch {0}: Completed.".format(e)
+                print ">   Epoch {0}: Match rate: {1})".format(e, self.evaluate(test_data))
             else:
                 print ">   Epoch {0}: Completed.".format(e)
 
@@ -195,7 +196,13 @@ class NeuralNetwork(object):
         return (output_activation - y)
 
     def evaluate(self, test_data):
-        test_results = [(np.argmax(self.feed_forward(x)), y)
-                for (x, y) in test_data]
-        return sum(int(x == y) for (x, y) in test_results)
+        """ Return match rate as percentage.
+        """
+        results = [
+            (np.argmax(self.feed_forward(x)), np.argmax(y)) for (x, y) in test_data
+        ]
+
+        matched = sum([1 for (x, y) in results if x == y])
+
+        return 100.0 * matched / (len(test_data) * 1.0)
 
