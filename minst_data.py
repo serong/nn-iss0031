@@ -23,6 +23,7 @@ class MnistData():
 
         # Pickle file loads 3 seperate tuples... each a (image, label) couple.
         self.training_data, self.validation_data, self.test_data = pickle.load(file)
+
         file.close()
 
     def make_vector(self, num):
@@ -33,6 +34,30 @@ class MnistData():
         zeros = np.zeros((10, 1))       #
         zeros[num] = 1.0
         return zeros
+
+    def get_training_data(self):
+        """ Return a zipped training data.
+        """
+        inputs = [np.reshape(x, (784, 1)) for x in self.training_data[0]]
+        results = [self.make_vector(y) for y in self.training_data[1]]
+
+        return zip(inputs, results)
+
+    def get_validation_data(self):
+        """ Return a zipped validation data.
+        """
+        inputs = [np.reshape(x, (784, 1)) for x in self.validation_data[0]]
+        results = [self.make_vector(y) for y in self.validation_data[1]]
+
+        return zip(inputs, results)
+
+    def get_test_data(self):
+        """ Return a zipped validation data.
+        """
+        inputs = [np.reshape(x, (784, 1)) for x in self.test_data[0]]
+        results = [self.make_vector(y) for y in self.test_data[1]]
+
+        return zip(inputs, results)
 
     def get_training_images(self):
         return self.training_data[0]

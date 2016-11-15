@@ -106,20 +106,25 @@ class NeuralNetwork(object):
 
         n = len(training_data)                                      # Training data length.
 
+        print ">   Epochs \t: ", epochs
+        print ">   Eta \t:", eta
+        print ""
+
         # xrange for lazy iteration generation based on epochs number.
         for e in xrange(epochs):
             np.random.shuffle(training_data)                        # Shuffling the data to increase the randomness of training.
             mini_batches = [training_data[k:k+mini_batch_size]      # Creating mini batches for stochastic method.
                             for k in xrange(0, n, mini_batch_size)]
 
+            print ">   Epoch {0} : Updating weights and biases.".format(e)
             for mini_batch in mini_batches:
                 self.update_mini_batch(mini_batch, eta)
 
             # Evaluating current state with test data.
             if test_data:
-                print "Epoch {0}: {1} / {2}".format(e, self.evaluate(test_data), n_test)
+                print ">   Epoch {0}: {1} / {2}".format(e, self.evaluate(test_data), n_test)
             else:
-                print "Epoch {0}: Complete.".format(e)
+                print ">   Epoch {0}: Completed.".format(e)
 
     def update_mini_batch(self, batch, eta):
         """ Updates the network weights and biases by applying
@@ -177,7 +182,7 @@ class NeuralNetwork(object):
         # second-last layer, and so on.  It's a renumbering of the
         # scheme in the book, used here to take advantage of the fact
         # that Python can use negative indices in lists.
-        for l in xrange(2, self.num_layers):
+        for l in xrange(2, self.number_of_layers):
             z = zs[-l]
             sp = t.sigmoid_prime(z)
             delta = np.dot(self.weights[-l+1].transpose(), delta) * sp
@@ -190,7 +195,7 @@ class NeuralNetwork(object):
         return (output_activation - y)
 
     def evaluate(self, test_data):
-        test_results = [(np.argmax(self.feedforward(x)), y)
+        test_results = [(np.argmax(self.feed_forward(x)), y)
                 for (x, y) in test_data]
         return sum(int(x == y) for (x, y) in test_results)
 
