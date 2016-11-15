@@ -16,7 +16,7 @@ net = network.NeuralNetwork([784, 30, 10])
 number3 = validation_data[0]
 
 print ">>> Training: "
-net.SGD(training_data, 5, 10, 3.0)
+net.SGD(training_data, 10, 10, 3.0)
 
 
 
