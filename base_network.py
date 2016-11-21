@@ -26,6 +26,9 @@ class BaseNetwork(object):
         self.biases = self.initialize_biases()
         self.weights = self.initialize_weights()
         print ">   Network initialized randomly."
+        ws = list()
+        t.flatten(self.weights, ws)
+        t.plot_histogram(ws)
 
     def initialize_weights(self):
         """ Randomly initialize weights.

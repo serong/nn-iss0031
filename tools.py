@@ -1,5 +1,6 @@
 import numpy as np
 import matplotlib.pyplot as plt
+import matplotlib.mlab as mlab
 
 
 def visualize_number(a_vector):
@@ -35,4 +36,24 @@ def hyperbolic(x):
     """
 
     return (np.exp(2*x) - 1.0) / (np.exp(2*x) + 1.0)
+
+
+def plot_histogram(values):
+    """ Take a list of values and plot and histogram.
+    """
+
+    n, bins, patches = plt.hist(values, 50)
+    plt.grid(True)
+    plt.show()
+
+
+def flatten(a_list, holder):
+    """ Flattens weights or biases in order to
+        histogram them.
+    """
+    if type(a_list) == np.float64:
+        holder.append(a_list)
+    else:
+        for x in a_list:
+            flatten(x, holder)
 
