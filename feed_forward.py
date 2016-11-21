@@ -59,32 +59,45 @@ class FeedForward(BaseNetwork):
         """
 
         print ">   Starting the training."
+
         if test_data:
             n_test = len(test_data)
 
-        n = len(training_data)                                      # Training data length.
+        # Training data len.
+        n = len(training_data)
 
         print ">   Epochs \t: ", epochs
         print ">   Eta \t:", eta
         print ""
 
+        print ">   Initial match rate: {0}%".format(self.evaluate(test_data))
+
         # xrange for lazy iteration generation based on epochs number.
         for e in xrange(epochs):
+
             # Shuffling the data to increase the randomness of training.
             np.random.shuffle(training_data)
 
             # Creating mini batches for stochastic method.
+            # This divides the training data to mini batches with the size of
+            # mini_batch_size.
+            # If we have td = [0, 1, ..., 99] n = 100, mini_batch_size = 5
+            # it becomes:
+            #   [[0, 1, 2, 3, 4], [5, 6, 7, 8, 9], ..., [95, 96, 97, 98, 99]]
             mini_batches = [training_data[k:k+self.mini_batch_size]
                             for k in xrange(0, n, self.mini_batch_size)]
 
             print ">   Epoch {0} : Updating weights and biases.".format(e)
             for mini_batch in mini_batches:
+                # Weights and biases are updated according to the gradient descent calculated
+                # on each mini batch. Since we already randomized the training data before,
+                # the mini batches are actually random. So, we're making random picks.
                 self.__update_mini_batch(mini_batch, eta)
 
             # Evaluating current state with test data.
             if test_data:
                 print ">   Epoch {0}: Completed.".format(e)
-                print ">   Epoch {0}: Match rate: {1})".format(e, self.evaluate(test_data))
+                print ">   Epoch {0}: Match rate: {1}%".format(e, self.evaluate(test_data))
             else:
                 print ">   Epoch {0}: Completed.".format(e)
 
@@ -93,7 +106,7 @@ class FeedForward(BaseNetwork):
             gradient descent on a single mini-batch
 
             batch  : List of (input, output) tuples.
-            eta         : Learning rate.
+            eta    : Learning rate.
 
             For every training example, gradients are calculated via
             backprop() method, then weights and biases are updated
