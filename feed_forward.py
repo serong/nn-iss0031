@@ -132,32 +132,46 @@ class FeedForward(BaseNetwork):
         self.biases = [b - (eta / len(batch)) * nb for b, nb in zip(self.biases, nabla_b)]
 
     def __backpropogation(self, x, y):
+        """ Backpropogation method used with supplied input and output.
+
+            Returns a tuple of gradients for weights and biases: (nabla_b, nabla_w)
+
+            Each element is column vector containing gradients for the respecting layer.
+
+            REF: http://neuralnetworksanddeeplearning.com/chap2.html
+        """
+
+        # Empty matrices with bias shapes / sizes.
         nabla_b = [np.zeros(b.shape) for b in self.biases]
         nabla_w = [np.zeros(w.shape) for w in self.weights]
 
-        # feedforward
+        # The initial activation.
         activation = x
-        activations = [x] # list to store all the activations, layer by layer
-        zs = [] # list to store all the z vectors, layer by layer
+
+        # List of activations for each layer.
+        activations = [x]
+
+        # List of outputs.
+        zs = []
+
+        # Iterating through tuples of biases and weights.
         for b, w in zip(self.biases, self.weights):
+            # Calculating neuron ouput:
+
+            # Dot multiplication of weight and activation, added neuron biase.
             z = np.dot(w, activation)+b
             zs.append(z)
+
+            # New activation.
             activation = t.sigmoid(z)
             activations.append(activation)
 
-        # backward pass
-        delta = self.cost_function_prime(activations[-1], y) * \
-                t.sigmoid_prime(zs[-1])
+        # Backpropogation part.
+        delta = self.cost_function_prime(activations[-1], y) * t.sigmoid_prime(zs[-1])
 
         nabla_b[-1] = delta
         nabla_w[-1] = np.dot(delta, activations[-2].transpose())
 
-        # Note that the variable l in the loop below is used a little
-        # differently to the notation in Chapter 2 of the book.  Here,
-        # l = 1 means the last layer of neurons, l = 2 is the
-        # second-last layer, and so on.  It's a renumbering of the
-        # scheme in the book, used here to take advantage of the fact
-        # that Python can use negative indices in lists.
         for l in xrange(2, self.number_of_layers):
             z = zs[-l]
             sp = t.sigmoid_prime(z)
