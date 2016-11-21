@@ -109,25 +109,27 @@ class FeedForward(BaseNetwork):
             eta    : Learning rate.
 
             For every training example, gradients are calculated via
-            backprop() method, then weights and biases are updated
+            backpropogation method, then weights and biases are updated
             accordingly.
         """
 
-        # creating matrices depending on bias and weight dimensions.
+        # creating empty matrices depending on bias and weight dimensions.
         nabla_b = [np.zeros(b.shape) for b in self.biases]
         nabla_w = [np.zeros(w.shape) for w in self.weights]
 
+        # Each batch is the size of self.mini_batch_size and contains tuples
+        # of (image, label) or in this case (x, y)
         for x, y in batch:
+            # Calculation of step change for supplied input and output... hence the error.
             delta_nabla_b, delta_nabla_w = self.__backpropogation(x, y)
 
+            # Updating temporary matrices with delta values (gradient steps)
             nabla_b = [nb + dnb for nb, dnb in zip(nabla_b, delta_nabla_b)]
             nabla_w = [nw + dnw for nw, dnw in zip(nabla_w, delta_nabla_w)]
 
-        self.weights = [w - (eta / len(batch)) * nw
-                        for w, nw in zip(self.weights, nabla_w)]
-
-        self.biases = [b - (eta / len(batch)) * nb
-                       for b, nb in zip(self.biases, nabla_b)]
+        # Each weight is updated, using learning rate and the calculated delta weights or biases.
+        self.weights = [w - (eta / len(batch)) * nw for w, nw in zip(self.weights, nabla_w)]
+        self.biases = [b - (eta / len(batch)) * nb for b, nb in zip(self.biases, nabla_b)]
 
     def __backpropogation(self, x, y):
         nabla_b = [np.zeros(b.shape) for b in self.biases]
