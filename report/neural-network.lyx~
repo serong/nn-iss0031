@@ -387,13 +387,7 @@ For training and test, I have used an already modified and prepared dataset
 For example, single layer neural network is shown to have an %8.4 error rate
  on test data, and a 2-layer network with total 300 hidden nodes using mean
  square error achieves %4.7 error.
- 
-\end_layout
-
-\begin_layout Standard
-For my project I aim to reach a %10-15 error due to not being familiar with
- required training times for such a dataset and not having a deep knowledge
- in neural networks.
+ For my project I aim to reach a %5-10 error.
 \end_layout
 
 \begin_layout Standard
@@ -423,7 +417,7 @@ Neural Networks
 \end_layout
 
 \begin_layout Standard
-In this chapter, we take a brief technical look at neural networks in order
+In this chapter, I take a brief technical look at neural networks in order
  to lay the foundations of the actual Python implementation of the project.
 \end_layout
 
@@ -435,7 +429,7 @@ Biological model
 Taking a look at the biological model that inspired artificial neural networks
  can help us understand their structure better.
  But since the biological model of how neuron and brain work is highly complex,
- I think it's beneficial to take a brief look at it.
+ I think it's beneficial to take a very brief look at it.
 \end_layout
 
 \begin_layout Standard
@@ -448,10 +442,10 @@ key "book:gurney"
 \end_inset
 
  This happens through positively or negatively charged ions.
- Each neuron is connected many others via synapses.
- Inputs to the neuron summed up and if it's over a certain threshold the
- neuron is excited.
- In general, an neuron can excited or inhibited.
+ Each neuron is connected to many others via synapses.
+ Inputs to the neuron is summed up and if it's over a certain threshold
+ the neuron is excited.
+ In general, an neuron can be excited or inhibited.
 \end_layout
 
 \begin_layout Standard
@@ -797,15 +791,22 @@ train
 \end_layout
 
 \begin_layout Standard
-Training dataset includes an input and an output for each example.
- During training the training data input is fed to the neural network and
+
+\series bold
+Training dataset
+\series default
+ includes an input and an output for each example.
+ During training, the training data input is fed to the neural network and
  its output is compared to the training data output.
- With this comparison we acquire an error, and the objective of training
- is minimizing this error.
+ With this comparison we acquire an error, and the
+\emph on
+ objective of training is minimizing this error
+\emph default
+.
 \end_layout
 
 \begin_layout Standard
-So in its basics, training is optimization of error for the neural network.
+So in its basics, training is the optimization of error for the neural network.
 \end_layout
 
 \begin_layout Subsection
@@ -953,12 +954,12 @@ Optimization
 
 \begin_layout Standard
 The aim of the training is to minimize the cost function.
- For this optimization methods are used.
+ For this, optimization methods are used.
  One way to optimize the cost function is to use gradient descent.
 \end_layout
 
 \begin_layout Standard
-Gradient descent is a menans of taking a step in the direction that does
+Gradient descent is a means of taking a step in the direction that does
  the most to decrease our cost function.
  We use derivatives to decide which way to take a small step in order to
  make the cost function smaller.
@@ -1050,8 +1051,8 @@ For example, for C that
 \end_layout
 
 \begin_layout Standard
-The amount of we need to take to make C smaller can be calculated as the
- following formula, where 
+The amount of step we need to take to make C smaller can be calculated as
+ the following formula, where 
 \begin_inset Formula $\eta$
 \end_inset
 
@@ -1194,7 +1195,7 @@ Python programming language.
 
 \begin_layout Plain Layout
 
-# function definition ####################################################
+# function definition
 \end_layout
 
 \begin_layout Plain Layout
@@ -1223,7 +1224,7 @@ def function_name(args):
 
 \begin_layout Plain Layout
 
-# List comprehensions: ###################################################
+# List comprehensions:
 \end_layout
 
 \begin_layout Plain Layout
@@ -1266,27 +1267,11 @@ def function_name(args):
 \begin_layout Plain Layout
 
 # Class definition.
- ######################################################
 \end_layout
 
 \begin_layout Plain Layout
 
 class NeuralNetwork(object):     
-\end_layout
-
-\begin_layout Plain Layout
-
-	bias_filename = "biases.npy"     
-\end_layout
-
-\begin_layout Plain Layout
-
-	weights_filename = "weights.npy"
-\end_layout
-
-\begin_layout Plain Layout
-
-    
 \end_layout
 
 \begin_layout Plain Layout
@@ -1326,14 +1311,14 @@ class NeuralNetwork(object):
 
 \begin_layout Standard
 Being popular and open-sourced, the language has plenty of libraries (roughly
- 90000 libraries)
+ 90000 libraries 
 \begin_inset CommandInset citation
 LatexCommand cite
 key "ref:pypi"
 
 \end_inset
 
- and it is a widely used tool in scientific programming area.
+ ) and it is a widely used tool in scientific programming area.
 \end_layout
 
 \begin_layout Standard
@@ -2072,7 +2057,7 @@ Data preparation and format
 \end_layout
 
 \begin_layout Standard
-Each digit image was center in 28x28 pixel format and later transformed
+Each digit image was centered in 28x28 pixel format and later transformed
  into a vector.
  Each vector element represents a pixel in the image in the form of 
 \series bold
@@ -2480,10 +2465,10 @@ Datasets
 \end_layout
 
 \begin_layout Standard
-The dataset comes with a training set of 60000 examples and a test set of
+The dataset comes with a training set of 70000 examples and a test set of
  10000 examples.
  For the project training set was partioned into 50000 examples for training
- and 10000 examples for validation.
+ and 20000 examples for testing and validation.
 \end_layout
 
 \begin_layout Standard
@@ -2662,43 +2647,504 @@ testing dataset
 The neural network 
 \end_layout
 
-\begin_layout Subsection
-Layers
-\end_layout
+\begin_layout Standard
 
-\begin_layout Subsubsection*
-- Input layer:
+\series bold
+Layers 
+\series default
+have been choosing in the following way: 784, 30, 10.
+ I found that a single 30-node hidden layer was a balanced number, especially
+ when considering the large input size.
 \end_layout
 
 \begin_layout Standard
-Input layer is of a size of 784, due to the each input image having a size
- of 28x28 pixels.
-\end_layout
-
-\begin_layout Subsubsection*
-- Output layer:
+Several 
+\series bold
+cost functions
+\series default
+ were tried for different implementations, but to be consistent I tried
+ to use MSE whenever I could.
 \end_layout
 
 \begin_layout Standard
-Output layer has 10 nodes, each representing a digit, or more precisely,
- the probability of being that number.
- The sum of all nodes in the output layer is 1.
+For the 
+\series bold
+optimization method
+\series default
+ variations of gradient descent method were used.
 \end_layout
 
-\begin_layout Subsection
-Cost function
-\end_layout
-
-\begin_layout Subsection
-Optimization method
-\end_layout
-
-\begin_layout Subsection
+\begin_layout Section
 Training
 \end_layout
 
+\begin_layout Section
+Numpy based implementation
+\end_layout
+
+\begin_layout Standard
+For the codes used in this implementation, 
+\emph on
+Neural Networks and Deep Learning
+\emph default
+ reference was my main reference 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "ref:nn"
+
+\end_inset
+
+, especially for 
+\series bold
+backpropogation
+\series default
+ and 
+\series bold
+stochastic gradient descent
+\series default
+ algorithms.
+\end_layout
+
 \begin_layout Subsection
-Performance
+Usage
+\end_layout
+
+\begin_layout Standard
+The FeedForward class implements a neural network with stochastic gradient
+ descent optimization and backpropogation, with somewhat satisfying results.
+ Its only dependency is NumPy, which is used for matrix multiplications
+ and similar actions.
+\end_layout
+
+\begin_layout Standard
+The class can be called and used as following:
+\end_layout
+
+\begin_layout Standard
+\begin_inset listings
+lstparams "language=Python"
+inline false
+status open
+
+\begin_layout Plain Layout
+
+\begin_inset Caption
+
+\begin_layout Plain Layout
+
+Numpy based implementation.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+
+# Creating a feed forward neural network with 
+\end_layout
+
+\begin_layout Plain Layout
+
+# Input	: 784 nodes
+\end_layout
+
+\begin_layout Plain Layout
+
+# Hidden   : 30 nodes
+\end_layout
+
+\begin_layout Plain Layout
+
+# Output   : 10 nodes
+\end_layout
+
+\begin_layout Plain Layout
+
+net = FeedForward([784, 30, 10]) 
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+# Training for 10 epochs with 3.0 learning rate.
+ 
+\end_layout
+
+\begin_layout Plain Layout
+
+net.train(training_data, 10, 3.0, test_data)
+\end_layout
+
+\begin_layout Plain Layout
+
+net.save_state()
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection
+Result
+\end_layout
+
+\begin_layout Standard
+This network can get good match results with relatively small amount of
+ epochs.
+ After 10 epochs, it reached a %94.12 match rate.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+placement H
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption
+
+\begin_layout Plain Layout
+Epoch vs matches
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Graphics
+	filename images/base_epoch.png
+	scale 75
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+
+\end_layout
+
+\begin_layout Section
+PyBrain implementation
+\end_layout
+
+\begin_layout Subsection
+Usage
+\end_layout
+
+\begin_layout Standard
+
+\emph on
+FeedForwardPB
+\emph default
+ class can be used to implement this neural network in the following way:
+\end_layout
+
+\begin_layout Standard
+\begin_inset listings
+lstparams "language=Python"
+inline false
+status open
+
+\begin_layout Plain Layout
+
+\begin_inset Caption
+
+\begin_layout Plain Layout
+
+PyBrain implementation
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+
+from feed_forward_pybrain import FeedForwardPB
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+# Creating the neural network with default values.
+ 
+\end_layout
+
+\begin_layout Plain Layout
+
+# [784, 30, 10] as layers.
+ 
+\end_layout
+
+\begin_layout Plain Layout
+
+nn = FeedForwardPB() 
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+# Updating learning rate for training.
+\end_layout
+
+\begin_layout Plain Layout
+
+nn.update_learningrate(0.5)
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+# Training for 5 times.
+ 
+\end_layout
+
+\begin_layout Plain Layout
+
+nn.train(5)
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection
+Result
+\end_layout
+
+\begin_layout Standard
+Maximum match reached with this implementation was 
+\series bold
+%90.62
+\series default
+.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+placement H
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\begin_inset Caption
+
+\begin_layout Plain Layout
+PyBrain implementation
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Graphics
+	filename images/pb_epoch.png
+	scale 75
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Section
+Keras implementation
+\end_layout
+
+\begin_layout Standard
+This implementation is based on TensorFlow library, so it offers easy to
+ use wrappers around TensorFlow and also comes with really good speed improvemen
+ts over the other two options.
+\end_layout
+
+\begin_layout Subsection
+Usage
+\end_layout
+
+\begin_layout Standard
+
+\emph on
+FeedForwardKeras
+\emph default
+ class can be used to implement a neural network as follows:
+\end_layout
+
+\begin_layout Standard
+\begin_inset listings
+lstparams "language=Python"
+inline false
+status open
+
+\begin_layout Plain Layout
+
+\begin_inset Caption
+
+\begin_layout Plain Layout
+
+Keras implementation
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+
+from feed_forward_keras import FeedForwardKeras
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+# Create a default neural network.
+\end_layout
+
+\begin_layout Plain Layout
+
+# Layers       : 784, 30, 10
+\end_layout
+
+\begin_layout Plain Layout
+
+# Optimization : RMSProp
+\end_layout
+
+\begin_layout Plain Layout
+
+# Cost Func.
+   : MSE
+\end_layout
+
+\begin_layout Plain Layout
+
+nn = FeedForwardKeras()
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+# Train for 5 epochs.
+\end_layout
+
+\begin_layout Plain Layout
+
+nn.train(5, verbose=1) 
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+# Evaluate matches.
+\end_layout
+
+\begin_layout Plain Layout
+
+nn.evaluate()
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection
+Result
+\end_layout
+
+\begin_layout Standard
+With this implementation, %95.43 match could be reached after 10 epochs.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+placement H
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\begin_inset Caption
+
+\begin_layout Plain Layout
+Keras implementation
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Graphics
+	filename images/keras_epochs.png
+	scale 75
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Chapter
@@ -2706,7 +3152,77 @@ Conclusion
 \end_layout
 
 \begin_layout Standard
-Last words.
+The first approach, using just 
+\series bold
+Numpy
+\series default
+, was a very good way to get a better understanding of how neural networks
+ work.
+ I was able to see how different algorithms could be implemented and to
+ have easier access to neural network parameters and so on.
+ 
+\end_layout
+
+\begin_layout Standard
+However, for experimenting and prototyping a library would be a better option.
+ So for next option, I checked two libraries: 
+\emph on
+PyBrain
+\emph default
+ and 
+\emph on
+Keras
+\emph default
+.
+\end_layout
+
+\begin_layout Standard
+
+\series bold
+PyBrain
+\series default
+ implementation was the slowest and least performant of all three implementation
+s.
+ Epochs took around 2 minutes, making configuring network parameters require
+ a little more patient.
+ 
+\end_layout
+
+\begin_layout Standard
+PyBrain, I had initially assumed, was the most 
+\begin_inset Quotes eld
+\end_inset
+
+low level
+\begin_inset Quotes erd
+\end_inset
+
+ library among the options, therefore would be a good next step after Numpy
+ implementation.
+ But I found working with Keras much more pleasant.
+\end_layout
+
+\begin_layout Standard
+
+\series bold
+Keras
+\series default
+ can use TensorFlow as its backend, so it provides an easy to use interface
+ to TensorFlow and more importantly take advantage of its speed.
+ It was quite easy to try new optimization algorithms and cost functions.
+\end_layout
+
+\begin_layout Standard
+Next time, I would mostly likely start directly with Keras and later move
+ on to TensorFlow.
+ 
+\end_layout
+
+\begin_layout Standard
+In summary, I have found Python and its libraries very pleasant to work
+ with data and neural network.
+ Libraries like Numpy, SciPy and Matplotlib are very mature and capable,
+ and they provide stable foundations for other libraries to built-upon.
 \end_layout
 
 \begin_layout Chapter*
@@ -2985,27 +3501,12 @@ Rere, L.M., Fanany, M.I, Arymurthy, A.M., Simulated annealing algorithm for deep
 \begin_layout Bibliography
 \begin_inset CommandInset bibitem
 LatexCommand bibitem
-key "bib:CD"
+key "ref:nn"
 
 \end_inset
 
- Cvitanović, P., Davidchack, R.
- L.
- and Siminos, E., On the state space geometry of the Kuramoto-Sivashinsky
- flow in a periodic domain, 
-\emph on
-SIAM J.
- Appl.
- Dyn.
- Syst.
-
-\emph default
- 
-\series bold
-9
-\series default
- (2010), 1–-33.
-  
+Nielsen, M, Neural Networks and Deep Learning, 2016, http://neuralnetworksanddee
+plearning.com/
 \begin_inset ERT
 status open
 
