@@ -1,0 +1,97 @@
+PYBRAIN
+=======
+
+Epochs and results:
+-------------------
+
+E   Match %   (lr: 0.5)
+0   10.45
+1   85.87
+2   86.23
+3   90.10
+4   89.06
+5   90.62
+
+
+Output:
+-------
+
+>   Reading data.
+>   Creating training dataset.
+>   Creating testing dataset.
+>   Creating validation dataset.
+>   All data loaded.
+>   Creating default trainer.
+>   Training rate is update to: 0.5
+>   Initial match: 10.45%
+>   Training: epoch 1
+>           : match 85.87%
+>   Training: epoch 2
+>           : match 86.23%
+>   Training: epoch 3
+>           : match 90.1%
+>   Training: epoch 4
+>           : match 89.06%
+>   Training: epoch 5
+>           : match 90.62%
+
+
+BASE
+====
+
+Epoch and training:
+-------------------
+
+E   Match %
+0   07.25
+1   90.53
+2   92.33
+3   93.10
+4   93.45
+5   93.98
+6   94.15
+7   94.36
+8   94.04
+9   94.25
+10  94.12
+
+Output:
+-------
+>>> Unpacking data.
+>   Network initialized randomly.
+>   Starting the training.
+>   Epochs  :  10
+>   Eta   : 3.0
+
+>   Initial match rate: 7.25%
+>   Epoch 0: Updating weights and biases.
+>   Epoch 0: Completed.
+>   Epoch 0: Match rate: 90.53%
+>   Epoch 1: Updating weights and biases.
+>   Epoch 1: Completed.
+>   Epoch 1: Match rate: 92.33%
+>   Epoch 2: Updating weights and biases.
+>   Epoch 2: Completed.
+>   Epoch 2: Match rate: 93.1%
+>   Epoch 3: Updating weights and biases.
+>   Epoch 3: Completed.
+>   Epoch 3: Match rate: 93.45%
+>   Epoch 4: Updating weights and biases.
+>   Epoch 4: Completed.
+>   Epoch 4: Match rate: 93.98%
+>   Epoch 5: Updating weights and biases.
+>   Epoch 5: Completed.
+>   Epoch 5: Match rate: 94.15%
+>   Epoch 6: Updating weights and biases.
+>   Epoch 6: Completed.
+>   Epoch 6: Match rate: 94.36%
+>   Epoch 7: Updating weights and biases.
+>   Epoch 7: Completed.
+>   Epoch 7: Match rate: 94.04%
+>   Epoch 8: Updating weights and biases.
+>   Epoch 8: Completed.
+>   Epoch 8: Match rate: 94.25%
+>   Epoch 9: Updating weights and biases.
+>   Epoch 9: Completed.
+>   Epoch 9: Match rate: 94.12%
+

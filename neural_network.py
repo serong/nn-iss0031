@@ -1,6 +1,8 @@
 import numpy as np
 import tools as t
 
+# TODO: Delete this file
+
 class NeuralNetwork(object):
     bias_filename = "biases.npy"
     weights_filename = "weights.npy"
