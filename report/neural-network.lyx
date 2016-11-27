@@ -2731,7 +2731,6 @@ status open
 \begin_inset Caption
 
 \begin_layout Plain Layout
-
 Numpy based implementation.
 \end_layout
 
@@ -2874,7 +2873,6 @@ status open
 \begin_inset Caption
 
 \begin_layout Plain Layout
-
 PyBrain implementation
 \end_layout
 
@@ -3027,7 +3025,6 @@ status open
 \begin_inset Caption
 
 \begin_layout Plain Layout
-
 Keras implementation
 \end_layout
 
@@ -3234,41 +3231,7 @@ One thing I missed from Matlab was the training GUI of neural network module,
 \end_layout
 
 \begin_layout Chapter*
-Appendix 1: Code
-\begin_inset CommandInset label
-LatexCommand label
-name "chap:Appendix-1:-Code"
 
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-addcontentsline{toc}{chapter}{Appendix 1: Code}
-\end_layout
-
-\end_inset
-
- 
-\end_layout
-
-\begin_layout Standard
-Here can be found the code used during the practical implementation.
- An updated copy of the code can also be found at the following Github repositor
-y, which includes this report as well as the datasets and Python scripts
- used.
-\end_layout
-
-\begin_layout Standard
-/// Github linkç
 \end_layout
 
 \begin_layout Bibliography

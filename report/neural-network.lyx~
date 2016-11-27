@@ -3225,6 +3225,14 @@ In summary, I have found Python and its libraries very pleasant to work
  and they provide stable foundations for other libraries to built-upon.
 \end_layout
 
+\begin_layout Standard
+One thing I missed from Matlab was the training GUI of neural network module,
+ where you can get easy access to graphs for performance and other parameters.
+ Although it's theoretically possible to do the same thing with Python,
+ it's often a more CLI-driven development, and it's up to the user to create
+ the visuals and outputs they need.
+\end_layout
+
 \begin_layout Chapter*
 Appendix 1: Code
 \begin_inset CommandInset label
