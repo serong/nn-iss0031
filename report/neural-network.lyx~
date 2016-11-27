@@ -391,12 +391,6 @@ For example, single layer neural network is shown to have an %8.4 error rate
 \end_layout
 
 \begin_layout Standard
-My initial plan is to start with a single hidden layer network with modest
- amount of nodes and to use gradient descent for optimization, and later
- try to improve the results.
-\end_layout
-
-\begin_layout Standard
 For Python libraries (which are discussed in Chapter 3), I plan to use a
  library that will offer a good balance between ease of use and 
 \begin_inset Quotes eld
@@ -417,8 +411,8 @@ Neural Networks
 \end_layout
 
 \begin_layout Standard
-In this chapter, I take a brief technical look at neural networks in order
- to lay the foundations of the actual Python implementation of the project.
+In this chapter, I take a brief look at neural networks in order to lay
+ the foundations of the actual Python implementation of the project.
 \end_layout
 
 \begin_layout Section
@@ -429,7 +423,7 @@ Biological model
 Taking a look at the biological model that inspired artificial neural networks
  can help us understand their structure better.
  But since the biological model of how neuron and brain work is highly complex,
- I think it's beneficial to take a very brief look at it.
+ I think it's beneficial to make it a very brief look.
 \end_layout
 
 \begin_layout Standard
@@ -475,6 +469,7 @@ Neuron structure.
 \align center
 \begin_inset Graphics
 	filename images/neuron_structure.jpg
+	scale 75
 
 \end_inset
 
@@ -487,17 +482,7 @@ Neuron structure.
 \end_layout
 
 \begin_layout Standard
-This basic model is very close to how a TLU (threshold logic unit) works,
- which will be discussed in the next section.
-\end_layout
-
-\begin_layout Standard
-Human brain includes roughly over 
-\series bold
-100 trillion
-\series default
- such connections, which forms the basis of how we learn new things and
- remember.
+This basic model is very close to how a TLU (threshold logic unit) works.
  A neural network is formed of simplified version of biological neurons
  and their connections, and are capable of making approximations for given
  data, after necessary training.
@@ -508,9 +493,9 @@ Basic theory
 \end_layout
 
 \begin_layout Standard
-To give a formal definition, an artificial neural network is an assembly
- of interconnected simple processing elements (nodes), whose functionality
- is stored in the interconnections' strengths (weights).
+An artificial neural network is an assembly of interconnected simple processing
+ elements (nodes), whose functionality is stored in the interconnections'
+ strengths (weights).
  
 \begin_inset CommandInset citation
 LatexCommand cite
@@ -563,7 +548,7 @@ A TLU
 \align center
 \begin_inset Graphics
 	filename images/tlu.png
-	scale 75
+	scale 35
 
 \end_inset
 
@@ -576,17 +561,21 @@ A TLU
 \end_layout
 
 \begin_layout Standard
-In this above example, the sum of weighted inputs is called 
+In the above example, the sum of weighted inputs is called 
 \series bold
 activation.
- Activation function
+ 
 \series default
- (a unit step function in this case) takes this activation and the node's
- bias (
+An 
+\series bold
+activation function
+\series default
+ (a step function in this case) takes this activation and the node's bias
+ (
 \begin_inset Formula $\theta$
 \end_inset
 
-) and produces an output accordingly.
+) and produces an output.
  So the output of a node depends on the weights, inputs, bias and the activation
  function type.
  
@@ -607,7 +596,7 @@ Activation functions affect the way node produces outputs, meaning they
 
 \begin_layout Standard
 For example, a sigmoid function would be a better choice if derivations
- come into the equation.
+ are used.
  Two most used activation functions are hyperbolic tangent (eq.
  
 \begin_inset CommandInset ref
@@ -684,7 +673,7 @@ Sigmoid (left) and hyperbolic tangent functions.
 \align center
 \begin_inset Graphics
 	filename images/sigmoid.jpeg
-	scale 50
+	scale 40
 
 \end_inset
 
@@ -695,7 +684,7 @@ Sigmoid (left) and hyperbolic tangent functions.
 
 \begin_inset Graphics
 	filename images/tanh.jpeg
-	scale 50
+	scale 40
 
 \end_inset
 
@@ -716,13 +705,13 @@ Another important activation function is called
 \series bold
 Softmax
 \series default
- which is mostly used in the output layer to give output as a probability.
+ which is used in the output layer to give output as a probability.
  More precisely it produces a K sized vector of real values in the range
- of (0,1) that add up to 1 when summed.
+ of (0, 1) that add up to 1 when summed.
 \end_layout
 
 \begin_layout Standard
-This is helpful in tasks like digit recognition where the output layer size
+This is helpful in tasks like digit recognition where output layer size
  is bigger than 1.
 \end_layout
 
@@ -762,7 +751,7 @@ A neural network with 2 hidden layers.
 \align center
 \begin_inset Graphics
 	filename images/neural_net.jpeg
-	scale 50
+	scale 25
 
 \end_inset
 
@@ -779,15 +768,15 @@ Training
 \end_layout
 
 \begin_layout Standard
-A neural network gives us a model derived from a set of collected input
- and output.
+A neural network gives us a model derived from collected input and output
+ data.
  But to achieve this, we need to 
 \series bold
 train
 \series default
  the neural network.
- For neural networks, training means altering weights and biases inside
- the network according to the error in the each iteration of the training.
+ For neural networks, training means updating weights and biases according
+ to the error in the each iteration of the training.
 \end_layout
 
 \begin_layout Standard
@@ -796,8 +785,8 @@ train
 Training dataset
 \series default
  includes an input and an output for each example.
- During training, the training data input is fed to the neural network and
- its output is compared to the training data output.
+ During training, the training input is fed to the neural network and its
+ output is compared to the training data output.
  With this comparison we acquire an error, and the
 \emph on
  objective of training is minimizing this error
@@ -806,7 +795,8 @@ Training dataset
 \end_layout
 
 \begin_layout Standard
-So in its basics, training is the optimization of error for the neural network.
+So in its basics, training is the optimization of global error for the neural
+ network.
 \end_layout
 
 \begin_layout Subsection
@@ -814,25 +804,16 @@ Cost function
 \end_layout
 
 \begin_layout Standard
-Cost function can be thought as the objective function in generic optimization
- problems.
+Cost function can be thought as the objective function in optimization problems.
  It is a representation of the global error in the network and a measurement
- of how well a neural network performs to the entire training dataset.
+ of how well a neural network fits to the entire training dataset.
  It also depends on weights and biases.
 \end_layout
 
 \begin_layout Standard
 \begin_inset Formula 
 \begin{equation}
-C=F(w,\theta)
-\end{equation}
-
-\end_inset
-
-
-\begin_inset Formula 
-\begin{equation}
-C\rightarrow min
+C=F(w,\theta),\quad C\rightarrow min
 \end{equation}
 
 \end_inset
@@ -842,19 +823,33 @@ C\rightarrow min
 
 \begin_layout Standard
 There are several differents methods for cost function.
- But some basic cost functions are:
-\end_layout
+ But some basic cost functions are: 
+\emph on
+sum of square errors (eq.
+ 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "eq:sse"
 
-\begin_layout Enumerate
-Sum of square errors
-\end_layout
+\end_inset
 
-\begin_layout Enumerate
-Mean square errors
-\end_layout
+), mean square error (eq.
+ 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "eq:mse"
 
-\begin_layout Enumerate
-Root mean square
+\end_inset
+
+), root mean square (eq.
+ 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "eq:rms"
+
+\end_inset
+
+).
 \end_layout
 
 \begin_layout Standard
@@ -892,17 +887,9 @@ E=(i-a)
 \end_layout
 
 \begin_layout Standard
-
-\series bold
-MSE 
-\series default
-(mean square error) as mentioned before is the most common cost function.
-\end_layout
-
-\begin_layout Standard
 \begin_inset Formula 
 \begin{equation}
-MSE=\frac{1}{n}\sum_{i=1}^{n}E^{2}
+MSE=\frac{1}{n}\sum_{i=1}^{n}E^{2}\label{eq:mse}
 \end{equation}
 
 \end_inset
@@ -911,17 +898,9 @@ MSE=\frac{1}{n}\sum_{i=1}^{n}E^{2}
 \end_layout
 
 \begin_layout Standard
-
-\series bold
-SSE
-\series default
- (sum of square errors) can be seen below.
-\end_layout
-
-\begin_layout Standard
 \begin_inset Formula 
 \begin{equation}
-SSE=\frac{1}{2}\sum_{p}E^{2}
+SSE=\frac{1}{2}\sum_{p}E^{2}\label{eq:sse}
 \end{equation}
 
 \end_inset
@@ -930,17 +909,9 @@ SSE=\frac{1}{2}\sum_{p}E^{2}
 \end_layout
 
 \begin_layout Standard
-And 
-\series bold
-RMS 
-\series default
-(root mean square) function is very close to MSE.
-\end_layout
-
-\begin_layout Standard
 \begin_inset Formula 
 \begin{equation}
-RMS=\sqrt{\frac{1}{n}\sum_{i=1}^{n}E^{2}}
+RMS=\sqrt{\frac{1}{n}\sum_{i=1}^{n}E^{2}}\label{eq:rms}
 \end{equation}
 
 \end_inset
@@ -956,16 +927,6 @@ Optimization
 The aim of the training is to minimize the cost function.
  For this, optimization methods are used.
  One way to optimize the cost function is to use gradient descent.
-\end_layout
-
-\begin_layout Standard
-Gradient descent is a means of taking a step in the direction that does
- the most to decrease our cost function.
- We use derivatives to decide which way to take a small step in order to
- make the cost function smaller.
- Derivatives can give us an idea about the slope of the point we're at in
- the cost function, and like a ball following a slope down, we can follow
- it.
 \end_layout
 
 \begin_layout Standard
@@ -995,6 +956,7 @@ Gradient descent on error function.
 \align center
 \begin_inset Graphics
 	filename images/descent.png
+	scale 50
 
 \end_inset
 
@@ -1004,6 +966,14 @@ Gradient descent on error function.
 \end_inset
 
 
+\end_layout
+
+\begin_layout Standard
+Gradient descent is a means of taking a step in the direction that does
+ the most to decrease our cost function.
+ We use derivatives to decide which way to take a small step in order to
+ make the cost function smaller.
+ 
 \end_layout
 
 \begin_layout Standard
@@ -1109,8 +1079,12 @@ Genetic algorithm:
 \end_layout
 
 \begin_layout Enumerate
-Simulated annealing: SA is based on physical annealing process where physical
- substances go from a higher state of energy to a smaller one.
+
+\emph on
+Simulated annealing:
+\emph default
+ SA is based on physical annealing process where physical substances go
+ from a higher state of energy to a smaller one.
  A concrete example is heating metal to molten state and letting it slowly
  cooldown until it becomes solid again.
  An in application to neural networks, one distinct difference is that SA
@@ -1142,8 +1116,7 @@ Python
 
 \begin_layout Standard
 This chapter includes information about certain Python libraries that offer
- tools to implement neural networks, and the reasoning behind my choices
- regarding the implementation.
+ tools to implement neural networks.
  It concludes with a section about the comparison of using computer vision
  solution instead of neural networks.
 \end_layout
@@ -1155,8 +1128,7 @@ Language and libraries
 \begin_layout Standard
 Python is a high level scripting language that supports several programming
  paradigms, including procedural and object-oriented, as well as a partial
- support for functional programming (although not officially supported or
- encouraged).
+ support for functional programming.
  This makes it a very flexible tool to use in different application areas.
 \end_layout
 
@@ -1164,14 +1136,7 @@ Python is a high level scripting language that supports several programming
 Another advantage of Python is that it has a clear and almost pseudo-code
  like syntax, making it easier to read and code.
  Below can be seen some examples of the syntax.
- Also appended to the file in Appendix 1 (page 
-\begin_inset CommandInset ref
-LatexCommand pageref
-reference "chap:Appendix-1:-Code"
-
-\end_inset
-
-) are all the codes used in the implementation.
+ 
 \end_layout
 
 \begin_layout Standard
@@ -1195,22 +1160,12 @@ Python programming language.
 
 \begin_layout Plain Layout
 
-# function definition
-\end_layout
-
-\begin_layout Plain Layout
-
 def function_name(args):
 \end_layout
 
 \begin_layout Plain Layout
 
-	""" Function documentation.
-\end_layout
-
-\begin_layout Plain Layout
-
-	"""
+	""" Function definition."""
 \end_layout
 
 \begin_layout Plain Layout
@@ -1224,84 +1179,17 @@ def function_name(args):
 
 \begin_layout Plain Layout
 
-# List comprehensions:
+# List comprehensions: a fast and convenient way to create lists.
 \end_layout
 
 \begin_layout Plain Layout
 
-# a fast and convenient way to create lists.
+[x for x in range(1,10)]     #[1, 2, 3, 4, 5, 6, 7, 8, 9] 
 \end_layout
 
 \begin_layout Plain Layout
 
-\end_layout
-
-\begin_layout Plain Layout
-
-[x for x in range(1,10)]
-\end_layout
-
-\begin_layout Plain Layout
-
-#[1, 2, 3, 4, 5, 6, 7, 8, 9] 
-\end_layout
-
-\begin_layout Plain Layout
-
-\end_layout
-
-\begin_layout Plain Layout
-
-[x*x for x in range(1,10)] 
-\end_layout
-
-\begin_layout Plain Layout
-
-# [1, 4, 9, 16, 25, 36, 49, 64, 81] 
-\end_layout
-
-\begin_layout Plain Layout
-
-\end_layout
-
-\begin_layout Plain Layout
-
-# Class definition.
-\end_layout
-
-\begin_layout Plain Layout
-
-class NeuralNetwork(object):     
-\end_layout
-
-\begin_layout Plain Layout
-
-	def __init__(self, layers):         
-\end_layout
-
-\begin_layout Plain Layout
-
-	""" Initialization.
- """
-\end_layout
-
-\begin_layout Plain Layout
-
-		self.number_of_layers = len(layers)
-\end_layout
-
-\begin_layout Plain Layout
-
-		self.layers = layers
-\end_layout
-
-\begin_layout Plain Layout
-
-\end_layout
-
-\begin_layout Plain Layout
-
-	def save_state():
+[x*x for x in range(1,10)]   # [1, 4, 9, 16, 25, 36, 49, 64, 81] 
 \end_layout
 
 \end_inset
@@ -1322,7 +1210,7 @@ key "ref:pypi"
 \end_layout
 
 \begin_layout Standard
-During the research and implementation, I have looked into following libraries.
+For implementation, I have looked into following libraries.
 \end_layout
 
 \begin_layout Subsection*
@@ -1338,9 +1226,9 @@ key "ref:numpy"
 
 \end_inset
 
-It offers powerful N-dimensional objects and tools for integrating with
+ It offers powerful N-dimensional objects and tools for integrating with
  C/C++ and Fortran code, which make it possible to solve performance issues
- using lower level languages that are more performant.
+ using lower level languages.
 \end_layout
 
 \begin_layout Standard
@@ -1364,21 +1252,11 @@ Very brief look into NumPy
 
 \begin_layout Plain Layout
 
-# very brief look into numpy.
-\end_layout
-
-\begin_layout Plain Layout
-
 import numpy as np
 \end_layout
 
 \begin_layout Plain Layout
 
-\end_layout
-
-\begin_layout Plain Layout
-
-# creating a vector of 4 elements.
 \end_layout
 
 \begin_layout Plain Layout
@@ -1472,8 +1350,6 @@ matrix
  sub-type.
  While matrices behave more-or-less like Matlab matrices, they have disadvantage
 s like having maximum 2 dimensions.
- More information about NumPy equivalents of Matlab operations can be found
- at the documentation page of the library.
  
 \begin_inset CommandInset citation
 LatexCommand cite
@@ -1493,50 +1369,14 @@ Matplotlib is an open-source 2-D plotting library that is widely used by
  Python applications.
 \end_layout
 
-\begin_layout Standard
-\begin_inset Float figure
-placement h
-wide false
-sideways false
-status open
-
-\begin_layout Plain Layout
-\begin_inset Caption
-
-\begin_layout Plain Layout
-A sample graph generated by Matplotlib
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Plain Layout
-\align center
-\begin_inset Graphics
-	filename images/matplot_log.png
-	scale 50
-
-\end_inset
-
-
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
 \begin_layout Subsection*
 TensorFlow
 \end_layout
 
 \begin_layout Standard
-TensorFlow is an open-source library that was developed within Google's
- Machine Intelligence research organization, as a tool to make research
- in machine learning quicker and easier to transition from prototype to
- production.
+TensorFlow is an open-source library developed within Google's Machine Intellige
+nce research organization, as a tool to make research in machine learning
+ quicker and easier to transition from prototype to production.
  
 \begin_inset CommandInset citation
 LatexCommand cite
@@ -1555,15 +1395,11 @@ tensors
 \series default
 .
  (In TensorFlow, a tensor is mainly a multi-dimensional array with static
- type and dynamic dimensions.) And each operation produces zero or more tensors.
+ type and dynamic dimensions.) And each operation produces tensors.
 \end_layout
 
 \begin_layout Subsubsection*
-- Features: 
-\end_layout
-
-\begin_layout Standard
-Some important aspects of Tensorflow:
+- Some features: 
 \end_layout
 
 \begin_layout Enumerate
@@ -1626,11 +1462,7 @@ Theano
 Theano is developed in University of Montreal's Institute of Learning Algorithms.
  It's used in the university's research as well as its machine learning
  classes.
- 
-\end_layout
-
-\begin_layout Standard
-In general, it's a library used to define, optimize and evaluate expression
+ In general, it's a library used to define, optimize and evaluate expression
  related to multi-dimensional arrays.
  
 \begin_inset CommandInset citation
@@ -1672,73 +1504,6 @@ If offers speeds closer to compiled C code implementations, and it comes
  )
 \end_layout
 
-\begin_layout Standard
-\begin_inset listings
-lstparams "language=Python"
-inline false
-status open
-
-\begin_layout Plain Layout
-
-\begin_inset Caption
-
-\begin_layout Plain Layout
-Code sample
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Plain Layout
-
-import theano 
-\end_layout
-
-\begin_layout Plain Layout
-
-from theano import tensor
-\end_layout
-
-\begin_layout Plain Layout
-
-\end_layout
-
-\begin_layout Plain Layout
-
-a = tensor.dscalar() 
-\end_layout
-
-\begin_layout Plain Layout
-
-b = tensor.dscalar()
-\end_layout
-
-\begin_layout Plain Layout
-
-c = a + b
-\end_layout
-
-\begin_layout Plain Layout
-
-\end_layout
-
-\begin_layout Plain Layout
-
-f = theano.function([a,b], c)
-\end_layout
-
-\begin_layout Plain Layout
-
-assert 4.0 == f(1.5, 2.5)
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
 \begin_layout Subsection*
 ScikitLearn
 \end_layout
@@ -1747,31 +1512,10 @@ ScikitLearn
 Scikit-Learn is a machine learning library built upon NumPy, SciPy and matplotli
 b libraries.
  It can handle both supervised and unsupervised learning, and supports following
- tasks:
-\end_layout
-
-\begin_layout Enumerate
-Classification
-\end_layout
-
-\begin_layout Enumerate
-Regression
-\end_layout
-
-\begin_layout Enumerate
-Clustering
-\end_layout
-
-\begin_layout Enumerate
-Dimensionality reduction
-\end_layout
-
-\begin_layout Enumerate
-Model selection
-\end_layout
-
-\begin_layout Enumerate
-Data preprocessing
+ tasks: 
+\emph on
+Classification, regression, clustering, dimensionality reduction, model
+ selection, data preprocessing.
 \end_layout
 
 \begin_layout Standard
@@ -2672,10 +2416,6 @@ For the
 optimization method
 \series default
  variations of gradient descent method were used.
-\end_layout
-
-\begin_layout Section
-Training
 \end_layout
 
 \begin_layout Section
