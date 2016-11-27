@@ -1579,19 +1579,9 @@ Libraries with Python bindings
 
 \begin_layout Standard
 In addition to the above libraries, there are libraries that were written
- in other languages but offers Python bindings:
-\end_layout
-
-\begin_layout Enumerate
-FANN: Fast Artificial Neural Network Library
-\end_layout
-
-\begin_layout Enumerate
-Caffe
-\end_layout
-
-\begin_layout Enumerate
-mxnet
+ in other languages but offers Python bindings: 
+\emph on
+FANN: Fast Artificial Neural Network Library, Caffe, mxnet.
 \end_layout
 
 \begin_layout Section
@@ -1790,10 +1780,7 @@ key "ref:mnist"
 
 , which is a subset of a larger study done at the National Institute of
  Standards and Technology of United States of America.
-\end_layout
-
-\begin_layout Standard
-It is preprocessed and formatted, therefore offering a good learning tool.
+ It is preprocessed and formatted, therefore offering a good learning tool.
 \end_layout
 
 \begin_layout Subsection*
@@ -2129,6 +2116,7 @@ And if plotted according to each pixel's blackness value, such a number
 
 \begin_layout Standard
 \begin_inset Float figure
+placement H
 wide false
 sideways false
 status open
@@ -2149,7 +2137,7 @@ Number visual representation
 \align center
 \begin_inset Graphics
 	filename images/number_rep.png
-	scale 50
+	scale 25
 
 \end_inset
 
@@ -2191,11 +2179,6 @@ Vector for number 4 in Python script
 
 \begin_layout Plain Layout
 
-# Vector for number 4
-\end_layout
-
-\begin_layout Plain Layout
-
 number_4 = [0, 0, 0, 0, 1, 0, 0, 0, 0, 0]
 \end_layout
 
@@ -2209,8 +2192,7 @@ Datasets
 \end_layout
 
 \begin_layout Standard
-The dataset comes with a training set of 70000 examples and a test set of
- 10000 examples.
+The dataset comes with a training set of 70000 examples.
  For the project training set was partioned into 50000 examples for training
  and 20000 examples for testing and validation.
 \end_layout
@@ -2396,9 +2378,10 @@ The neural network
 \series bold
 Layers 
 \series default
-have been choosing in the following way: 784, 30, 10.
- I found that a single 30-node hidden layer was a balanced number, especially
+have been choosen in the following way: 784, 30, 10.
+ I found that a single 30-node hidden layer was a good balance, especially
  when considering the large input size.
+ 
 \end_layout
 
 \begin_layout Standard
@@ -2451,13 +2434,10 @@ Usage
 
 \begin_layout Standard
 The FeedForward class implements a neural network with stochastic gradient
- descent optimization and backpropogation, with somewhat satisfying results.
+ descent optimization and backpropogation.
  Its only dependency is NumPy, which is used for matrix multiplications
  and similar actions.
-\end_layout
-
-\begin_layout Standard
-The class can be called and used as following:
+ 
 \end_layout
 
 \begin_layout Standard
@@ -2481,27 +2461,12 @@ Numpy based implementation.
 
 \begin_layout Plain Layout
 
-# Creating a feed forward neural network with 
+# Creating a feed forward neural network with
 \end_layout
 
 \begin_layout Plain Layout
 
-# Input	: 784 nodes
-\end_layout
-
-\begin_layout Plain Layout
-
-# Hidden   : 30 nodes
-\end_layout
-
-\begin_layout Plain Layout
-
-# Output   : 10 nodes
-\end_layout
-
-\begin_layout Plain Layout
-
-net = FeedForward([784, 30, 10]) 
+net = FeedForward([784, 30, 10]) 			# [Input, Hidden, Output]
 \end_layout
 
 \begin_layout Plain Layout
@@ -2566,7 +2531,7 @@ Epoch vs matches
 \align center
 \begin_inset Graphics
 	filename images/base_epoch.png
-	scale 75
+	scale 50
 
 \end_inset
 
@@ -2592,14 +2557,6 @@ PyBrain implementation
 
 \begin_layout Subsection
 Usage
-\end_layout
-
-\begin_layout Standard
-
-\emph on
-FeedForwardPB
-\emph default
- class can be used to implement this neural network in the following way:
 \end_layout
 
 \begin_layout Standard
@@ -2638,42 +2595,19 @@ from feed_forward_pybrain import FeedForwardPB
 
 \begin_layout Plain Layout
 
-# [784, 30, 10] as layers.
+nn = FeedForwardPB() 					# [784, 30, 10] as layers.
  
 \end_layout
 
 \begin_layout Plain Layout
 
-nn = FeedForwardPB() 
+nn.update_learningrate(0.5) 	# Updating learning rate for training.
 \end_layout
 
 \begin_layout Plain Layout
 
-\end_layout
-
-\begin_layout Plain Layout
-
-# Updating learning rate for training.
-\end_layout
-
-\begin_layout Plain Layout
-
-nn.update_learningrate(0.5)
-\end_layout
-
-\begin_layout Plain Layout
-
-\end_layout
-
-\begin_layout Plain Layout
-
-# Training for 5 times.
+nn.train(5)										# Training for 5 times.
  
-\end_layout
-
-\begin_layout Plain Layout
-
-nn.train(5)
 \end_layout
 
 \end_inset
@@ -2716,7 +2650,7 @@ PyBrain implementation
 \align center
 \begin_inset Graphics
 	filename images/pb_epoch.png
-	scale 75
+	scale 50
 
 \end_inset
 
@@ -2737,21 +2671,12 @@ Keras implementation
 \end_layout
 
 \begin_layout Standard
-This implementation is based on TensorFlow library, so it offers easy to
- use wrappers around TensorFlow and also comes with really good speed improvemen
-ts over the other two options.
+Keras implementation used TensorFlow backend, so it offers easy to use wrappers
+ around TensorFlow and also good speed improvements over the other two options.
 \end_layout
 
 \begin_layout Subsection
 Usage
-\end_layout
-
-\begin_layout Standard
-
-\emph on
-FeedForwardKeras
-\emph default
- class can be used to implement a neural network as follows:
 \end_layout
 
 \begin_layout Standard
@@ -2810,30 +2735,12 @@ nn = FeedForwardKeras()
 
 \begin_layout Plain Layout
 
+nn.train(5, verbose=1) 			# Train for 5 epochs.
 \end_layout
 
 \begin_layout Plain Layout
 
-# Train for 5 epochs.
-\end_layout
-
-\begin_layout Plain Layout
-
-nn.train(5, verbose=1) 
-\end_layout
-
-\begin_layout Plain Layout
-
-\end_layout
-
-\begin_layout Plain Layout
-
-# Evaluate matches.
-\end_layout
-
-\begin_layout Plain Layout
-
-nn.evaluate()
+nn.evaluate()								# Evaluate matches.
 \end_layout
 
 \end_inset
@@ -2846,7 +2753,11 @@ Result
 \end_layout
 
 \begin_layout Standard
-With this implementation, %95.43 match could be reached after 10 epochs.
+With this implementation, 
+\series bold
+%95.43
+\series default
+ match could be reached after 10 epochs.
 \end_layout
 
 \begin_layout Standard
@@ -2872,7 +2783,7 @@ Keras implementation
 \align center
 \begin_inset Graphics
 	filename images/keras_epochs.png
-	scale 75
+	scale 50
 
 \end_inset
 
@@ -2921,7 +2832,7 @@ PyBrain
  implementation was the slowest and least performant of all three implementation
 s.
  Epochs took around 2 minutes, making configuring network parameters require
- a little more patient.
+ a little more patience.
  
 \end_layout
 
@@ -2945,8 +2856,9 @@ low level
 Keras
 \series default
  can use TensorFlow as its backend, so it provides an easy to use interface
- to TensorFlow and more importantly take advantage of its speed.
- It was quite easy to try new optimization algorithms and cost functions.
+ to TensorFlow and more importantly it takes advantage of its speed.
+ It was quite easy to try new optimization algorithms and cost functions
+ while using this library.
 \end_layout
 
 \begin_layout Standard
@@ -2956,8 +2868,8 @@ Next time, I would mostly likely start directly with Keras and later move
 \end_layout
 
 \begin_layout Standard
-In summary, I have found Python and its libraries very pleasant to work
- with data and neural network.
+In summary, I have found Python and its libraries very good to work with
+ data and neural network.
  Libraries like Numpy, SciPy and Matplotlib are very mature and capable,
  and they provide stable foundations for other libraries to built-upon.
 \end_layout
