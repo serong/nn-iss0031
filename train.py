@@ -1,4 +1,3 @@
-import neural_network as network
 import tools as tools
 import minst_data as minst
 from feed_forward import FeedForward
