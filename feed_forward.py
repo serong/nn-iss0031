@@ -4,6 +4,8 @@
 
     A feed forward neural network using stochastic gradient descent
     and backpropogation.
+
+    It's mostly based on Michael Nielsen's http://neuralnetworksanddeeplearning.com/
 """
 
 from base_network import BaseNetwork
@@ -11,6 +13,7 @@ import tools as t
 import numpy as np
 
 class FeedForward(BaseNetwork):
+    # Saved state file names. They'll be located under /states folder.
     weights_filename = "ff_weights.npy"
     bias_filename = "ff_biases.npy"
 
@@ -40,7 +43,7 @@ class FeedForward(BaseNetwork):
         for b, w in zip(self.biases, self.weights):
             a = t.sigmoid(np.dot(w, a) + b)
 
-        # We basically take each flow the information through the layers
+        # We basically flow the information through the layers
         # until the output is reached.
         return a
 
@@ -50,7 +53,7 @@ class FeedForward(BaseNetwork):
             training_data       : Training data. List of tuples (input, output)
             epochs              : Training epochs.
             eta                 : Learning rate.
-            test_data           :
+            test_data           : Test data.
 
             Each epoch start with a randomized training data, then we divide it
             into mini batches. This gives a way to get easy random samples.

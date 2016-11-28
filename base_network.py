@@ -1,11 +1,17 @@
-import numpy as np
-import tools as t
+"""
+    base_network.py
+    ~~~~~~~~~~~~~~~
 
+    Base class for a numpy-based neural network.
+
+    It's mostly based on Michael Nielsen's http://neuralnetworksanddeeplearning.com/
+"""
+
+import numpy as np
 
 class BaseNetwork(object):
-    state_folder = "states/"
-
-    bias_filename = "bn_biases.npy"
+    state_folder = "states/"                            # Saved states will be located here.
+    bias_filename = "bn_biases.npy"                     # File names for the saved states.
     weights_filename = "bn_weights.npy"
 
     def __init__(self, layers):
@@ -14,25 +20,28 @@ class BaseNetwork(object):
             layers:     List of layer neurons. [2 3 1]
                         [input <hidden_layers> output] -> [10 20 20 5]
 
-            Initializes weights and biases randomly using Numpy's
+            Initializes weights and biases randomly using numpy's
             random array generator.
         """
 
-        self.number_of_layers = len(layers)
-        self.layers = layers
+        self.number_of_layers = len(layers)             # Total number of layers.
+        self.layers = layers                            # Layers and their size.
+
         self.weights = list()
         self.biases = list()
-
         self.biases = self.initialize_biases()
         self.weights = self.initialize_weights()
+
         print ">   Network initialized randomly."
-        ws = list()
-        t.flatten(self.weights, ws)
-        t.plot_histogram(ws)
+
+        # If you want to see a histogram of the initial weights.
+        # Mostly for debug purposes.
+        # ws = list()
+        # t.flatten(self.weights, ws)
+        # t.plot_histogram(ws)
 
     def initialize_weights(self):
-        """ Randomly initialize weights.
-        """
+        """ Randomly initialize weights. """
 
         # WEIGHTS ---------------------------------------------------------------------------------
         # Similarly we create a transposed weights lists.
@@ -51,8 +60,7 @@ class BaseNetwork(object):
         #                       array([[ 0.22304971,  1.29879581, -0.49437018]])]
 
     def initialize_biases(self):
-        """ Randomly initialize biases.
-        """
+        """ Randomly initialize biases. """
 
         # BIASES. ---------------------------------------------------------------------------------
         # Each neuron in each layer has its own bias, but the biases in
@@ -73,17 +81,16 @@ class BaseNetwork(object):
         """ Save the current state of the network.
 
             Might be useful for performance and time limitations reasons.
-
             This way, training can be completed in partial trainings.
         """
 
         np.save(self.state_folder + self.bias_filename, self.biases)
         np.save(self.state_folder + self.weights_filename, self.weights)
+
         print ">   Network state is saved."
 
     def load_state(self):
-        """ Loads state from save *npy file.
-        """
+        """ Loads state from save *npy file. """
 
         # TODO: Check if state exists.
         b = np.load(self.state_folder + self.bias_filename)
