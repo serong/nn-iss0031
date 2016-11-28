@@ -1,3 +1,9 @@
+"""
+    train_pb.py
+    ~~~~~~~~
+
+    Training a feed forward neural network using PyBrain.
+"""
 from feed_forward_pybrain import FeedForwardPB
 
 # Creating the neural network with default values.

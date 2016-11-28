@@ -1,3 +1,10 @@
+"""
+    feed_forward_pybrain.py
+    ~~~~~~~~~~~~~~~
+
+    A feed forward neural network using PyBrain library.
+"""
+
 import minst_data as minst
 import numpy as np
 
@@ -9,7 +16,10 @@ from pybrain.tools.shortcuts import buildNetwork
 from pybrain.tools.customxml import NetworkReader, NetworkWriter
 
 class FeedForwardPB(object):
+    # For saving network state.
     network_fn = "feed_forward_pb.xml"
+
+    # Data path.
     data_path = "data/mnist_data.pkl.gz"
 
     def __init__(self, input_layer=784, hidden_layer=30, output_layer=10, load=False):
@@ -19,19 +29,22 @@ class FeedForwardPB(object):
         self.hidden_layer = hidden_layer
         self.output_layer = output_layer
 
+        # Loading from a previously saved state.
         if load:
             self.net = NetworkReader.readFrom(self.network_fn)
         else:
             self.net = buildNetwork(input_layer, hidden_layer, output_layer, bias=True, hiddenclass=SigmoidLayer, outclass=SoftmaxLayer)
 
-        # Initiating data.
+        # Creating training and testing data.
         print ">   Reading data."
         data = minst.MnistData(self.data_path)
 
+        # Reading the data.
         trd = data.get_training_data()
         ttd = data.get_test_data()
         vad = data.get_validation_data()
 
+        # Converting into shape that can be used by the library.
         print ">   Creating training dataset."
         self.ds_training = SupervisedDataSet(input_layer, output_layer)
 
@@ -50,16 +63,19 @@ class FeedForwardPB(object):
 
         print ">   All data loaded."
 
-        print ">   Creating default trainer. (Use update_trainer if you want to change)"
+        # Default trainer for the network.
+        print ">   Creating default trainer. (Use update_learningrate if you want to change)"
         self.trainer = BackpropTrainer(self.net, self.ds_training, learningrate=1)
 
     def update_learningrate(self, val):
         """ Update the trainer with the current learning rate. """
+
         print ">   Training rate is update to: {0}".format(val)
         self.trainer = BackpropTrainer(self.net, self.ds_training, learningrate=val)
 
     def evaluate(self, validation=False):
         """ Evaluate network using test data or validation data."""
+
         if validation:
             data = zip(self.ds_validation["input"], self.ds_validation["target"])
         else:
@@ -75,10 +91,12 @@ class FeedForwardPB(object):
 
     def save_nn_state(self):
         """ Save neural network state so it can be loaded later on."""
+
         NetworkWriter.writeToFile(self.net, self.network_fn)
 
     def activate(self, inp, number=False):
         """ Get the output for the given input. """
+
         result = self.net.activate(inp)
 
         if number:
@@ -88,6 +106,7 @@ class FeedForwardPB(object):
 
     def train(self, epochs=1, save=True):
         """ Train the network certain number of times. """
+
         error = self.evaluate()
         errors = [error]
 
