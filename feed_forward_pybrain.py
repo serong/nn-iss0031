@@ -1,6 +1,6 @@
 """
     feed_forward_pybrain.py
-    ~~~~~~~~~~~~~~~
+    ~~~~~~~~~~~~~~~~~~~~~~~
 
     A feed forward neural network using PyBrain library.
 """

@@ -1,6 +1,6 @@
 """
     train_pb.py
-    ~~~~~~~~
+    ~~~~~~~~~~~
 
     Training a feed forward neural network using PyBrain.
 """

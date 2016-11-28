@@ -1,3 +1,10 @@
+"""
+    feed_forward_keras.py
+    ~~~~~~~~~~~~~~~~~~~~~
+
+    A neural network based on Keras and TensorFlow.
+"""
+
 import tools as tools
 import numpy as np
 import minst_data as minst
@@ -10,6 +17,7 @@ class FeedForwardKeras(object):
     def __init__(self, input_layer=784, hidden_layer=30, output_layer=10, load=False):
         """ Create a default model. """
 
+        # Preparing the data, reshaping it so it can be used with Keras.
         print ">>> Preparing data."
         self.training_x = np.random.random((50000, 784))
         self.test_x = np.random.random((10000, 784))
@@ -21,12 +29,13 @@ class FeedForwardKeras(object):
 
         self.prepare_data()
 
+        # A standard neural network model.
         print ">   Creating the model."
         self.net = Sequential()
 
         # Adding the layers.
-        self.net.add(Dense(30, input_dim=784, activation="sigmoid"))
-        self.net.add(Dense(10, activation="softmax"))
+        self.net.add(Dense(30, input_dim=784, activation="sigmoid"))        # Hidden layer.
+        self.net.add(Dense(10, activation="softmax"))                       # Output layer.
 
         # Compiling the network.
         # optimizers    : sgd, rmsprop, adagrad, adadelta, adam, adamax, tfoptimizer
@@ -39,7 +48,14 @@ class FeedForwardKeras(object):
                          metrics=["accuracy"])
 
     def prepare_data(self):
-        """ Preparing data. """
+        """ Preparing data.
+
+            Mostly some reshaping between (784, 1) and (784,) so Keras
+            can use it.
+
+            Labels are also in categorical mode.
+            i.e.: [0, 1, 0, 0, 0, 0, 0, 0, 0, 0] for 1
+        """
         data = minst.MnistData(self.data_path)
 
         training_data = data.get_training_data()
@@ -67,6 +83,7 @@ class FeedForwardKeras(object):
 
     def train(self, epochs, batch_size = 30, verbose=0):
         """ Train the model. """
+
         print ">   Training the model for {0} epochs.".format(epochs)
 
         self.net.fit(self.training_x,
@@ -76,6 +93,7 @@ class FeedForwardKeras(object):
 
     def evaluate(self):
         """ Evaluate the matches. """
+
         res = self.net.evaluate(self.test_x, self.test_y, verbose=0)
 
         print ">   Match: {0}%".format(res[1] * 100)
