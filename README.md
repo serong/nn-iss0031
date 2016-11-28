@@ -54,3 +54,8 @@ Dependencies:
 - Pybrain
 - Keras
 - TensorFlow or Theano
+
+### Other
+
+- Loading data files: minst_data.py
+- Helper functions: tools.py
