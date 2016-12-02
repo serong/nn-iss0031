@@ -59,3 +59,4 @@ Dependencies:
 
 - Loading data files: minst_data.py
 - Helper functions: tools.py
+- Other modules: pickle, gzip, matplotlib
